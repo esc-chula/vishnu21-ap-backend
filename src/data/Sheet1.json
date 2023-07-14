@@ -1,0 +1,123 @@
+[
+    {
+        "slot": 1,
+        "start": "1899-12-30T09:17:56.000Z",
+        "end": "1899-12-30T09:47:56.000Z",
+        "duration": "1899-12-29T17:47:56.000Z",
+        "department": "COOR",
+        "event": "นอน (กริยาขึ้นก่อน)",
+        "location": "ลานเกียร์",
+        "contact": "นาย ก (0xx-xxx-xxxx)",
+        "note": "นอนบ้างนะ"
+    },
+    {
+        "slot": 2,
+        "start": "1899-12-30T09:17:56.000Z",
+        "end": "1899-12-30T09:32:56.000Z",
+        "duration": "1899-12-29T17:32:56.000Z",
+        "department": "SAWAD",
+        "event": "รับข้าวจากร้าน",
+        "location": "icanteen",
+        "contact": "นาว (0xx-xxx-xxxx)",
+        "note": "สวัสดิการบ้านละ 6 คน มารับข้าว"
+    },
+    {
+        "slot": 3,
+        "start": "1899-12-30T13:17:56.000Z",
+        "end": "1899-12-30T14:17:56.000Z",
+        "duration": "1899-12-29T18:17:56.000Z",
+        "department": "IT",
+        "event": "Testing",
+        "location": "Testing",
+        "contact": "Testing",
+        "note": "Testing"
+    },
+    {
+        "slot": "",
+        "start": "",
+        "end": "",
+        "duration": "",
+        "department": "",
+        "event": "",
+        "location": "",
+        "contact": "",
+        "note": ""
+    },
+    {
+        "slot": "",
+        "start": "",
+        "end": "",
+        "duration": "",
+        "department": "",
+        "event": "",
+        "location": "",
+        "contact": "",
+        "note": ""
+    },
+    {
+        "slot": "",
+        "start": "",
+        "end": "",
+        "duration": "",
+        "department": "",
+        "event": "",
+        "location": "",
+        "contact": "",
+        "note": ""
+    },
+    {
+        "slot": "",
+        "start": "",
+        "end": "",
+        "duration": "",
+        "department": "",
+        "event": "",
+        "location": "",
+        "contact": "",
+        "note": ""
+    },
+    {
+        "slot": "",
+        "start": "",
+        "end": "",
+        "duration": "",
+        "department": "",
+        "event": "",
+        "location": "",
+        "contact": "",
+        "note": ""
+    },
+    {
+        "slot": "",
+        "start": "",
+        "end": "",
+        "duration": "",
+        "department": "",
+        "event": "",
+        "location": "",
+        "contact": "",
+        "note": ""
+    },
+    {
+        "slot": "",
+        "start": "",
+        "end": "",
+        "duration": "",
+        "department": "",
+        "event": "",
+        "location": "",
+        "contact": "",
+        "note": ""
+    },
+    {
+        "slot": "",
+        "start": "",
+        "end": "",
+        "duration": "",
+        "department": "",
+        "event": "",
+        "location": "",
+        "contact": "",
+        "note": ""
+    }
+]

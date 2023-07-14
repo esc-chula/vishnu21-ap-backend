@@ -2,6 +2,7 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
+import updateData from "./utils/updateData.util";
 
 dotenv.config();
 
@@ -16,8 +17,9 @@ app.use(
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get("/", (req, res) => {
-    res.send("Hello World!");
+app.get("/", async (req, res) => {
+    const data = await updateData("Sheet1");
+    res.send(data);
 });
 
 app.listen(process.env.PORT, () => {
