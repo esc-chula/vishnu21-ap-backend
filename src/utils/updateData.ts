@@ -1,8 +1,9 @@
+import { ISlot } from '@/interfaces/slots';
 import axios from 'axios';
 import fs from 'fs';
 
-export default async function updateData(sheet: string) {
-    const sheetData = await axios
+export async function syncData(sheet: string): Promise<ISlot[] | null> {
+    const sheetData: ISlot[] | null = await axios
         .get(process.env.GOOGLE_SCRIPT_API_ENDPOINT!, {
             params: {
                 sheet,
@@ -16,6 +17,8 @@ export default async function updateData(sheet: string) {
         })
         .catch(() => null);
 
+    sheetData?.forEach((slot) => (slot.announced = false));
+
     if (sheetData) {
         fs.writeFileSync(
             `./src/data/${sheet}.json`,
@@ -24,4 +27,11 @@ export default async function updateData(sheet: string) {
     }
 
     return sheetData;
+}
+
+export function updateData(sheet: string, sheetData: ISlot[]) {
+    fs.writeFileSync(
+        `./src/data/${sheet}.json`,
+        JSON.stringify(sheetData, null, 4)
+    );
 }

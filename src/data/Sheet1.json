@@ -8,7 +8,8 @@
         "event": "นอน (กริยาขึ้นก่อน)",
         "location": "ลานเกียร์",
         "contact": "นาย ก (0xx-xxx-xxxx)",
-        "note": "นอนบ้างนะ"
+        "note": "นอนบ้างนะ",
+        "announced": false
     },
     {
         "slot": 2,
@@ -19,18 +20,20 @@
         "event": "รับข้าวจากร้าน",
         "location": "icanteen",
         "contact": "นาว (0xx-xxx-xxxx)",
-        "note": "สวัสดิการบ้านละ 6 คน มารับข้าว"
+        "note": "สวัสดิการบ้านละ 6 คน มารับข้าว",
+        "announced": false
     },
     {
         "slot": 3,
-        "start": "1899-12-30T13:17:56.000Z",
-        "end": "1899-12-30T14:17:56.000Z",
-        "duration": "1899-12-29T18:17:56.000Z",
+        "start": "1899-12-30T12:17:56.000Z",
+        "end": "1899-12-30T12:47:56.000Z",
+        "duration": "1899-12-29T17:47:56.000Z",
         "department": "IT",
         "event": "Testing",
         "location": "Testing",
         "contact": "Testing",
-        "note": "Testing"
+        "note": "Testing",
+        "announced": true
     },
     {
         "slot": "",
@@ -41,7 +44,8 @@
         "event": "",
         "location": "",
         "contact": "",
-        "note": ""
+        "note": "",
+        "announced": false
     },
     {
         "slot": "",
@@ -52,7 +56,8 @@
         "event": "",
         "location": "",
         "contact": "",
-        "note": ""
+        "note": "",
+        "announced": false
     },
     {
         "slot": "",
@@ -63,7 +68,8 @@
         "event": "",
         "location": "",
         "contact": "",
-        "note": ""
+        "note": "",
+        "announced": false
     },
     {
         "slot": "",
@@ -74,7 +80,8 @@
         "event": "",
         "location": "",
         "contact": "",
-        "note": ""
+        "note": "",
+        "announced": false
     },
     {
         "slot": "",
@@ -85,7 +92,8 @@
         "event": "",
         "location": "",
         "contact": "",
-        "note": ""
+        "note": "",
+        "announced": false
     },
     {
         "slot": "",
@@ -96,7 +104,8 @@
         "event": "",
         "location": "",
         "contact": "",
-        "note": ""
+        "note": "",
+        "announced": false
     },
     {
         "slot": "",
@@ -107,7 +116,8 @@
         "event": "",
         "location": "",
         "contact": "",
-        "note": ""
+        "note": "",
+        "announced": false
     },
     {
         "slot": "",
@@ -118,6 +128,7 @@
         "event": "",
         "location": "",
         "contact": "",
-        "note": ""
+        "note": "",
+        "announced": false
     }
 ]

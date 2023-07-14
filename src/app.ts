@@ -1,8 +1,11 @@
-import bodyParser from "body-parser";
-import cors from "cors";
-import dotenv from "dotenv";
-import express from "express";
-import updateData from "./utils/updateData.util";
+import bodyParser from 'body-parser';
+import cors from 'cors';
+import cron from 'node-cron';
+import dotenv from 'dotenv';
+import express from 'express';
+import { syncData } from './utils/updateData';
+import { findActiveSlots } from './utils/checkSlots';
+import { announceSlot } from './utils/announceSlot';
 
 dotenv.config();
 
@@ -10,15 +13,26 @@ const app = express();
 
 app.use(
     cors({
-        origin: "*",
+        origin: '*',
     })
 );
 
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get("/", async (req, res) => {
-    const data = await updateData("Sheet1");
+cron.schedule('* * * * *', () => {
+    console.log('checking schedule');
+    announceSlot('Sheet1', findActiveSlots('Sheet1'));
+});
+
+cron.schedule('*/20 * * * *', async () => {
+    console.log('syncing google sheet');
+    await syncData('Sheet1');
+});
+
+app.get('/', async (req, res) => {
+    // await syncData('Sheet1');
+    const data = findActiveSlots('Sheet1');
     res.send(data);
 });
 
