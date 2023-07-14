@@ -3,8 +3,10 @@ import axios from 'axios';
 import fs from 'fs';
 
 export async function syncData(sheet: string): Promise<ISlot[] | null> {
+    const localSheetData: ISlot[] = require(`@/data/${sheet}.json`);
+
     const sheetData: ISlot[] | null = await axios
-        .get(process.env.GOOGLE_SCRIPT_API_ENDPOINT!, {
+        .get(process.env.AP_SHEET_API!, {
             params: {
                 sheet,
             },
@@ -17,7 +19,9 @@ export async function syncData(sheet: string): Promise<ISlot[] | null> {
         })
         .catch(() => null);
 
-    sheetData?.forEach((slot) => (slot.announced = false));
+    sheetData?.forEach(
+        (slot) => (slot.announced = localSheetData[slot.slot].announced)
+    );
 
     if (sheetData) {
         fs.writeFileSync(
