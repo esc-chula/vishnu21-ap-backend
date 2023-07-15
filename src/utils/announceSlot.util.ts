@@ -1,5 +1,5 @@
 import { ISlot } from '@/interfaces/ap';
-import { updateData } from './updateData';
+import { updateData } from './updateData.util';
 
 export function announceSlot(sheet: string, slots: ISlot[]): void {
     const sheetData: ISlot[] = require(`@/data/${sheet}.json`);

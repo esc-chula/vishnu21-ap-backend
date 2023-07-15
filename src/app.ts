@@ -5,9 +5,9 @@ import dotenv from 'dotenv';
 import express from 'express';
 import mongoose from 'mongoose';
 import userController from './controllers/user.controller';
-import { syncData } from './utils/updateData';
-import { findActiveSlots } from './utils/checkSlots';
-import { announceSlot } from './utils/announceSlot';
+import { syncData } from './utils/updateData.util';
+import { findActiveSlots } from './utils/checkSlots.util';
+import { announceSlot } from './utils/announceSlot.util';
 
 dotenv.config();
 
