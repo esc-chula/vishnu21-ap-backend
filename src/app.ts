@@ -4,6 +4,7 @@ import cron from 'node-cron';
 import dotenv from 'dotenv';
 import express from 'express';
 import mongoose from 'mongoose';
+import apController from './controllers/ap.controller';
 import userController from './controllers/user.controller';
 import { syncData } from './utils/updateData.util';
 import { findActiveSlots } from './utils/checkSlots.util';
@@ -44,6 +45,7 @@ app.use(
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.use('/ap', apController);
 app.use('/user', userController);
 
 app.get('/', async (req, res) => {
