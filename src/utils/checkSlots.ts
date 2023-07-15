@@ -1,5 +1,5 @@
 import moment from 'moment';
-import { ISlot } from '@/interfaces/slots';
+import { ISlot } from '@/interfaces/ap';
 
 export function findActiveSlots(sheet: string): ISlot[] {
     const sheetData: ISlot[] = require(`@/data/${sheet}.json`);

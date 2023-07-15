@@ -1,4 +1,4 @@
-import { ISlot } from '@/interfaces/slots';
+import { ISlot } from '@/interfaces/ap';
 import axios from 'axios';
 import fs from 'fs';
 

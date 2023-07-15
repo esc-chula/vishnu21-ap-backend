@@ -1,4 +1,4 @@
-import { ISlot } from '@/interfaces/slots';
+import { ISlot } from '@/interfaces/ap';
 import { updateData } from './updateData';
 
 export function announceSlot(sheet: string, slots: ISlot[]): void {

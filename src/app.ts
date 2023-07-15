@@ -3,6 +3,8 @@ import cors from 'cors';
 import cron from 'node-cron';
 import dotenv from 'dotenv';
 import express from 'express';
+import mongoose from 'mongoose';
+import userController from './controllers/user.controller';
 import { syncData } from './utils/updateData';
 import { findActiveSlots } from './utils/checkSlots';
 import { announceSlot } from './utils/announceSlot';
@@ -11,14 +13,17 @@ dotenv.config();
 
 const app = express();
 
-app.use(
-    cors({
-        origin: '*',
+mongoose
+    .connect(
+        `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASS}@${process.env.MONGO_CLUSTER}.7mwofts.mongodb.net/${process.env.MONGO_DB}?retryWrites=true&w=majority`
+    )
+    .then(() => {
+        console.log('Database connected ');
     })
-);
-
-app.use(express.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+    .catch((err) => {
+        console.log('Database connection error');
+        console.log(err);
+    });
 
 cron.schedule('* * * * *', () => {
     console.log('checking schedule');
@@ -29,6 +34,17 @@ cron.schedule('*/20 * * * *', async () => {
     console.log('syncing google sheet');
     await syncData('Sheet1');
 });
+
+app.use(
+    cors({
+        origin: '*',
+    })
+);
+
+app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use('/user', userController);
 
 app.get('/', async (req, res) => {
     // await syncData('Sheet1');
