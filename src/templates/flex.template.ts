@@ -49,7 +49,7 @@ const slotBubble = ({
                         },
                     ],
                     paddingAll: 'xxl',
-                    backgroundColor: '#0F172A',
+                    backgroundColor: '#020617',
                 },
                 {
                     type: 'box',

@@ -30,8 +30,17 @@ export const announceSlot = async (event: IEvent, slots: ISlot[]) => {
     if (contents.length > 1) {
         const message = messageTemplate.message({
             type: 'flex',
-            altText: ``,
-            contents: contents,
+            altText: slots
+                .map((slot) => {
+                    const start = moment(slot.start).format('HH:mm');
+                    const end = moment(slot.end).format('HH:mm');
+                    return `${slot.event} ${start}-${end}\n`;
+                })
+                .join(' '),
+            contents: {
+                type: 'carousel',
+                contents: contents,
+            },
         });
 
         const replyData = {
@@ -40,40 +49,24 @@ export const announceSlot = async (event: IEvent, slots: ISlot[]) => {
         };
 
         messageUtil.sendMessage('reply', replyData);
-        return;
-    }
-
-    slots.forEach((slot) => {
+    } else {
+        const content = contents[0];
+        const slot = slots[0];
         const start = moment(slot.start).format('HH:mm');
         const end = moment(slot.end).format('HH:mm');
-
-        const content = flexTemplate.slotBubble({
-            slot: slot.slot,
-            department: slot.department,
-            start: start,
-            end: end,
-            event: slot.event,
-            location: slot.location,
-            note: slot.note,
-            contactName: 'ปูน',
-            contactTel: '0918751929',
-        });
-
         const message = messageTemplate.message({
             type: 'flex',
             altText: `${slot.event} ${start}-${end}`,
             contents: content,
         });
 
-        messages.push(message);
-    });
+        const replyData = {
+            replyToken: event.replyToken,
+            messages: [message],
+        };
 
-    const replyData = {
-        replyToken: event.replyToken,
-        messages: messages,
-    };
-
-    messageUtil.sendMessage('reply', replyData);
+        messageUtil.sendMessage('reply', replyData);
+    }
 };
 
 export default {

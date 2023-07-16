@@ -1,5 +1,5 @@
 export interface IMessage {
-    type: 'text' | 'flex' | 'carousel';
+    type: 'text' | 'flex';
     altText: string;
     contents: any;
 }
