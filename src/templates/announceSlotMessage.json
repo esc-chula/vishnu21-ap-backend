@@ -1,0 +1,136 @@
+{
+    "type": "bubble",
+    "body": {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+            {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                    {
+                        "type": "text",
+                        "text": "#1 | WELFARE",
+                        "weight": "bold",
+                        "color": "#8B5CF6",
+                        "size": "xs"
+                    },
+                    {
+                        "type": "text",
+                        "text": "13:00 - 15:00",
+                        "weight": "bold",
+                        "size": "xxl",
+                        "margin": "md",
+                        "color": "#F8FAFC"
+                    }
+                ],
+                "paddingAll": "xxl",
+                "backgroundColor": "#020617"
+            },
+            {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                    {
+                        "type": "box",
+                        "layout": "vertical",
+                        "contents": [
+                            {
+                                "type": "text",
+                                "text": "กิจกรรม",
+                                "size": "xs",
+                                "color": "#64748B"
+                            },
+                            {
+                                "type": "text",
+                                "text": "รับข้าวจากร้าน",
+                                "size": "xl",
+                                "weight": "bold",
+                                "wrap": true,
+                                "color": "#1E293B"
+                            }
+                        ]
+                    },
+                    {
+                        "type": "separator",
+                        "margin": "xl"
+                    },
+                    {
+                        "type": "box",
+                        "layout": "vertical",
+                        "contents": [
+                            {
+                                "type": "text",
+                                "text": "สถานที่",
+                                "size": "xs",
+                                "color": "#64748B"
+                            },
+                            {
+                                "type": "text",
+                                "text": "icanteen",
+                                "size": "lg",
+                                "weight": "bold",
+                                "wrap": true,
+                                "color": "#1E293B"
+                            }
+                        ]
+                    },
+                    {
+                        "type": "separator",
+                        "margin": "xl"
+                    },
+                    {
+                        "type": "box",
+                        "layout": "vertical",
+                        "contents": [
+                            {
+                                "type": "text",
+                                "text": "หมายเหตุ",
+                                "size": "xs",
+                                "color": "#64748B"
+                            },
+                            {
+                                "type": "text",
+                                "text": "สวัสดิการบ้านละ 6 คน มารับข้าว",
+                                "color": "#334155"
+                            }
+                        ]
+                    }
+                ],
+                "paddingAll": "xxl",
+                "paddingBottom": "xs"
+            },
+            {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                    {
+                        "type": "box",
+                        "layout": "vertical",
+                        "contents": [
+                            {
+                                "type": "button",
+                                "action": {
+                                    "type": "uri",
+                                    "label": "โทรหา ผต.",
+                                    "uri": "tel:0918751929"
+                                },
+                                "color": "#334155"
+                            }
+                        ],
+                        "backgroundColor": "#E2E8F0",
+                        "cornerRadius": "lg"
+                    }
+                ],
+                "paddingAll": "xxl"
+            }
+        ],
+        "paddingAll": "none"
+    },
+    "size": "mega",
+    "styles": {
+        "footer": {
+            "separator": true
+        }
+    }
+}

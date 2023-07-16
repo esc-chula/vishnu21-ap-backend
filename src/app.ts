@@ -6,6 +6,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import apController from './controllers/ap.controller';
 import userController from './controllers/user.controller';
+import webhookController from './controllers/webhook.controller';
 import { syncData } from './utils/localData.util';
 import { announceSlot, findActiveSlots } from './services/ap.service';
 
@@ -46,6 +47,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/ap', apController);
 app.use('/user', userController);
+app.use('/webhook', webhookController);
 
 app.get('/', async (req, res) => {
     // await syncData('Sheet1');

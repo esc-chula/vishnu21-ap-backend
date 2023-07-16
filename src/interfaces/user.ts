@@ -1,3 +1,5 @@
+import { TDepartment } from './department';
+
 export interface CreateUserDTO {
     studentId: string;
     displayName: string;
@@ -6,10 +8,10 @@ export interface CreateUserDTO {
 
 export interface UpdateUserDTO {
     enableBot?: boolean;
-    selectedDepartments?: string[];
+    selectedDepartments?: TDepartment[];
 }
 
 export interface IUser extends CreateUserDTO {
     enableBot: boolean;
-    selectedDepartments: string[];
+    selectedDepartments: TDepartment[];
 }
