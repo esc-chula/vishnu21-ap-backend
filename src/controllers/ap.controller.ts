@@ -3,6 +3,7 @@ import express from 'express';
 
 const router = express.Router();
 
+// sync data from google sheet
 router.post('/sync', async (req, res) => {
     const apData = await syncData('Sheet1');
 
@@ -18,5 +19,9 @@ router.post('/sync', async (req, res) => {
         message: 'Data synced successfully',
     });
 });
+
+router.get('/', async (req, res) => {});
+
+router.get('/active', async (req, res) => {});
 
 export default router;

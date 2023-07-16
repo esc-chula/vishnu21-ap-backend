@@ -8,5 +8,5 @@ export interface ISlot {
     location: string;
     contact: string;
     note: string;
-    announced: boolean;
+    announced?: boolean;
 }

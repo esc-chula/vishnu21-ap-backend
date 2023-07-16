@@ -20,7 +20,10 @@ export async function syncData(sheet: string): Promise<ISlot[] | null> {
         .catch(() => null);
 
     sheetData?.forEach(
-        (slot) => (slot.announced = localSheetData[slot.slot].announced)
+        (slot) =>
+            (slot.announced = localSheetData.find(
+                (localSheet) => slot.slot === localSheet.slot
+            )?.announced)
     );
 
     if (sheetData) {
