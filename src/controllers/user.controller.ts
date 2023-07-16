@@ -14,6 +14,7 @@ router.post('/', async (req, res) => {
         userId,
         enableBot: false,
         selectedDepartments: [],
+        superUser: false,
     });
 
     if (!createdUser) {
