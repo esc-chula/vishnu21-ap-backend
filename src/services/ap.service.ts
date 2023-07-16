@@ -1,5 +1,6 @@
 import moment from 'moment';
 import { ISlot } from '@/interfaces/ap';
+import { updateData } from '@/utils/localData.util';
 
 export function findActiveSlots(sheet: string): ISlot[] {
     const sheetData: ISlot[] = require(`@/data/${sheet}.json`);
@@ -17,4 +18,22 @@ export function findActiveSlots(sheet: string): ISlot[] {
     });
 
     return activeSlots;
+}
+
+export function announceSlot(sheet: string, slots: ISlot[]): void {
+    const sheetData: ISlot[] = require(`@/data/${sheet}.json`);
+
+    slots.forEach((slot) => {
+        if (!slot.announced) {
+            slot.announced = true;
+            sheetData.forEach((data) => {
+                if (data.slot === slot.slot) {
+                    data.announced = true;
+                }
+            });
+            console.log('Announcing slot:', slot);
+        }
+    });
+
+    updateData('Sheet1', sheetData);
 }

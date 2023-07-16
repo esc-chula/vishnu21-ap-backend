@@ -1,4 +1,5 @@
-import { syncData } from '@/utils/updateData.util';
+import { findActiveSlots } from '@/services/ap.service';
+import { syncData } from '@/utils/localData.util';
 import express from 'express';
 
 const router = express.Router();
@@ -20,8 +21,22 @@ router.post('/sync', async (req, res) => {
     });
 });
 
-router.get('/', async (req, res) => {});
+router.get('/', async (req, res) => {
+    return res.status(200).send({
+        success: true,
+        message: 'Data fetched successfully',
+        data: require('@/data/Sheet1.json'),
+    });
+});
 
-router.get('/active', async (req, res) => {});
+router.get('/active', async (req, res) => {
+    const activeApData = findActiveSlots('Sheet1');
+
+    return res.status(200).send({
+        success: true,
+        message: 'Data fetched successfully',
+        data: activeApData,
+    });
+});
 
 export default router;

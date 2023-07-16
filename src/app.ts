@@ -6,9 +6,8 @@ import express from 'express';
 import mongoose from 'mongoose';
 import apController from './controllers/ap.controller';
 import userController from './controllers/user.controller';
-import { syncData } from './utils/updateData.util';
-import { findActiveSlots } from './utils/checkSlots.util';
-import { announceSlot } from './utils/announceSlot.util';
+import { syncData } from './utils/localData.util';
+import { announceSlot, findActiveSlots } from './services/ap.service';
 
 dotenv.config();
 
