@@ -46,12 +46,31 @@ router.get('/active', async (req, res) => {
 });
 
 router.post('/announce', async (req, res) => {
-    const announcingSlots = await apService.announce();
+    const announcingSlots = await apService.announceSlots();
 
     return res.status(200).send({
         success: true,
         message: 'Announced successfully',
         data: announcingSlots,
+    });
+});
+
+router.patch('/offset', async (req, res) => {
+    const { slot, offset } = req.body;
+
+    const updatedSlot = await apService.setOffset(slot, offset);
+
+    if (!updatedSlot) {
+        return res.status(400).send({
+            success: false,
+            message: 'Error updating offset',
+        });
+    }
+
+    return res.status(200).send({
+        success: true,
+        message: 'Offset updated successfully',
+        data: updatedSlot,
     });
 });
 

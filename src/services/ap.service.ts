@@ -13,7 +13,7 @@ const create = async (body: ISlot) => {
             return null;
         });
 
-    return createdSlot;
+    return createdSlot as ISlot;
 };
 
 const findAll = async () => {
@@ -25,7 +25,9 @@ const findAll = async () => {
         return null;
     }
 
-    return slots.filter((slot) => slot.slot);
+    return slots
+        .filter((slot) => slot.slot)
+        .sort((a, b) => a.slot - b.slot) as ISlot[];
 };
 
 const findOneBySlot = async (slot: number) => {
@@ -35,7 +37,7 @@ const findOneBySlot = async (slot: number) => {
         .then((slot) => slot)
         .catch(() => null);
 
-    return slotData;
+    return slotData as ISlot;
 };
 
 const updateBySlot = async (
@@ -65,11 +67,11 @@ const updateBySlot = async (
         .then((slot) => slot)
         .catch(() => null);
 
-    return updatedSlot;
+    return updatedSlot as ISlot;
 };
 
 const getSheet = async (sheet: string) => {
-    const sheetData: ISlot[] | null = await axios
+    const slots: ISlot[] | null = await axios
         .get(process.env.AP_SHEET_API!, {
             params: {
                 sheet,
@@ -82,17 +84,17 @@ const getSheet = async (sheet: string) => {
         })
         .catch(() => null);
 
-    return sheetData;
+    return slots;
 };
 
 const syncSheet = async (sheet: string) => {
-    const sheetData = (await getSheet(sheet))?.filter((slot) => slot.slot);
+    const slots = (await getSheet(sheet))?.filter((slot) => slot.slot);
 
-    if (!sheetData) {
+    if (!slots) {
         return null;
     }
 
-    const syncedSheet = sheetData.map(async (slot) => {
+    const syncedSheet = slots.map(async (slot) => {
         const existedSlot = await findOneBySlot(slot.slot);
 
         if (!existedSlot) {
@@ -114,13 +116,13 @@ const syncSheet = async (sheet: string) => {
 };
 
 const findActiveSlots = async () => {
-    const sheetData = (await findAll()) as ISlot[];
+    const slots = (await findAll()) as ISlot[];
 
-    if (!sheetData) {
+    if (!slots) {
         return null;
     }
 
-    const activeSlots = sheetData.filter((slot) => {
+    const activeSlots = slots.filter((slot) => {
         const currentTime = moment();
         const startTime = moment(
             moment(slot.start).format('HH:mm:ss'),
@@ -137,7 +139,7 @@ const findActiveSlots = async () => {
     return activeSlots.sort((a, b) => a.slot - b.slot);
 };
 
-const announce = async () => {
+const announceSlots = async () => {
     const activeSlots = await findActiveSlots();
 
     if (!activeSlots) {
@@ -156,8 +158,38 @@ const announce = async () => {
         }
     }
 
+    console.log('slots have been announced');
+
     return announcingSlots;
 };
+
+const setOffset = async (slot: number, offset: number) => {
+    const slots = await findAll();
+
+    if (!slots) return null;
+
+    const targetSlots = slots.slice(slot - 1);
+
+    const updatedSlots = [] as ISlot[];
+
+    for (const slot of targetSlots) {
+        const start = moment(slot.start).add(offset, 'minutes').format();
+        const end = moment(slot.end).add(offset, 'minutes').format();
+
+        const updatedSlot = (await updateBySlot(slot.slot, {
+            start,
+            end,
+        })) as ISlot;
+
+        updatedSlots.push(updatedSlot);
+    }
+
+    console.log('slots have been set offset by', offset);
+
+    return updatedSlots;
+};
+
+const announceOffset = async () => {};
 
 export default {
     create,
@@ -166,5 +198,7 @@ export default {
     getSheet,
     syncSheet,
     findActiveSlots,
-    announce,
+    announceSlots,
+    setOffset,
+    announceOffset,
 };
