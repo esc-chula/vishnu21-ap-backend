@@ -8,6 +8,16 @@ const router = express.Router();
 router.post('/', async (req, res) => {
     const { displayName, studentId, userId } = req.body as CreateUserDTO;
 
+    const existedUser = await userService.findByStudentId(studentId);
+
+    if (existedUser) {
+        return res.status(200).send({
+            success: true,
+            message: 'User already exists',
+            data: existedUser,
+        });
+    }
+
     const createdUser = await userService.createUser({
         displayName,
         studentId,

@@ -50,9 +50,10 @@ app.use('/user', userController);
 app.use('/webhook', webhookController);
 
 app.get('/', async (req, res) => {
-    // await syncData('Sheet1');
-    const data = findActiveSlots('Sheet1');
-    res.send(data);
+    res.send({
+        success: true,
+        message: 'Server is running',
+    });
 });
 
 app.listen(process.env.PORT, () => {
