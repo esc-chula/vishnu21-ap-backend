@@ -1,14 +1,13 @@
-import { findActiveSlots } from '@/services/ap.service';
-import { syncData } from '@/utils/localData.util';
+import apService from '@/services/ap.service';
 import express from 'express';
 
 const router = express.Router();
 
 // sync data from google sheet
 router.post('/sync', async (req, res) => {
-    const apData = await syncData('Sheet1');
+    const syncedData = await apService.syncSheet('Sheet1');
 
-    if (!apData) {
+    if (!syncedData) {
         return res.status(400).send({
             success: false,
             message: 'Error syncing data',
@@ -30,12 +29,29 @@ router.get('/', async (req, res) => {
 });
 
 router.get('/active', async (req, res) => {
-    const activeApData = findActiveSlots('Sheet1');
+    const activeSlots = await apService.findActiveSlots();
+
+    if (!activeSlots) {
+        return res.status(400).send({
+            success: false,
+            message: 'Error fetching data',
+        });
+    }
 
     return res.status(200).send({
         success: true,
         message: 'Data fetched successfully',
-        data: activeApData,
+        data: activeSlots,
+    });
+});
+
+router.post('/announce', async (req, res) => {
+    const announcingSlots = await apService.announce();
+
+    return res.status(200).send({
+        success: true,
+        message: 'Announced successfully',
+        data: announcingSlots,
     });
 });
 

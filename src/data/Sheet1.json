@@ -1,50 +1,74 @@
 [
     {
         "slot": 1,
-        "start": "1899-12-30T09:17:56.000Z",
-        "end": "1899-12-30T09:47:56.000Z",
-        "duration": "1899-12-29T17:47:56.000Z",
-        "department": "COOR",
-        "event": "นอน (กริยาขึ้นก่อน)",
-        "location": "ลานเกียร์",
-        "contact": "นาย ก (0xx-xxx-xxxx)",
-        "note": "นอนบ้างนะ",
-        "announced": false
+        "start": "1899-12-29T19:17:56.000Z",
+        "end": "1899-12-29T20:47:56.000Z",
+        "duration": "1899-12-29T18:47:56.000Z",
+        "department": "WELFARE",
+        "event": "รับข้าวและถุงขยะของพี่บ้าน *สวัสบ้าน",
+        "location": "Toshiba → ห้องบ้าน",
+        "contact": "นาว (099-090-0299)",
+        "note": "สวัสบ้าน 2 คน รับของพี่",
+        "announced": true
     },
     {
         "slot": 2,
-        "start": "1899-12-30T09:17:56.000Z",
-        "end": "1899-12-30T09:32:56.000Z",
-        "duration": "1899-12-29T17:32:56.000Z",
-        "department": "WELFARE",
-        "event": "รับข้าวจากร้าน",
-        "location": "icanteen",
-        "contact": "นาว (0xx-xxx-xxxx)",
-        "note": "สวัสดิการบ้านละ 6 คน มารับข้าว",
-        "announced": false
+        "start": "1899-12-29T19:17:56.000Z",
+        "end": "1899-12-29T20:47:56.000Z",
+        "duration": "1899-12-29T18:47:56.000Z",
+        "department": "IT",
+        "event": "ส่งโปสเตอร์คริสตัลแตก",
+        "location": "ศาลาพระเกี้ยว",
+        "contact": "โม (094-793-4482)",
+        "note": "",
+        "announced": true
     },
     {
         "slot": 3,
-        "start": "1899-12-30T12:17:56.000Z",
-        "end": "1899-12-30T14:17:56.000Z",
-        "duration": "1899-12-29T19:17:56.000Z",
-        "department": "REG",
-        "event": "Testing",
-        "location": "Testing",
-        "contact": "Testing",
-        "note": "Testing",
+        "start": "1899-12-29T19:17:56.000Z",
+        "end": "1899-12-29T20:47:56.000Z",
+        "duration": "1899-12-29T18:47:56.000Z",
+        "department": "MC",
+        "event": "อธิบายสิ่งที่ต้องทำของตีมก่อนเริ่ม Treasure Hunt",
+        "location": "ศาลาพระเกี้ยว",
+        "contact": "โม (094-793-4482)",
+        "note": "",
         "announced": true
     },
     {
         "slot": 4,
-        "start": "1899-12-30T12:17:56.000Z",
-        "end": "1899-12-30T14:17:56.000Z",
-        "duration": "1899-12-29T19:17:56.000Z",
-        "department": "COOR",
-        "event": "Testing",
-        "location": "Testing",
-        "contact": "Testing",
-        "note": "Testing",
+        "start": "1899-12-29T19:17:56.000Z",
+        "end": "1899-12-29T20:47:56.000Z",
+        "duration": "1899-12-29T18:47:56.000Z",
+        "department": "PLAN",
+        "event": "เคลียร์น้องออกจากห้องน้ำ",
+        "location": "หอประชุม",
+        "contact": "ณัฎ (081-462-2465)",
+        "note": "",
+        "announced": true
+    },
+    {
+        "slot": 5,
+        "start": "1899-12-29T19:17:56.000Z",
+        "end": "1899-12-29T20:47:56.000Z",
+        "duration": "1899-12-29T18:47:56.000Z",
+        "department": "MC",
+        "event": "ชี้แจงกฎค่าย",
+        "location": "ศาลาพระเกี้ยว",
+        "contact": "ข้าวปั้น (081-659-9772)",
+        "note": "",
+        "announced": true
+    },
+    {
+        "slot": 6,
+        "start": "1899-12-29T19:17:56.000Z",
+        "end": "1899-12-29T20:47:56.000Z",
+        "duration": "1899-12-29T18:47:56.000Z",
+        "department": "WELFARE",
+        "event": "ไลน์แถว หอประชุม → กินข้าว",
+        "location": "ศาลาพระเกี้ยว → โต๊ะกินข้าว",
+        "contact": "ณัฎ (081-462-2465)",
+        "note": "",
         "announced": true
     },
     {
@@ -56,8 +80,7 @@
         "event": "",
         "location": "",
         "contact": "",
-        "note": "",
-        "announced": false
+        "note": ""
     },
     {
         "slot": "",
@@ -68,8 +91,7 @@
         "event": "",
         "location": "",
         "contact": "",
-        "note": "",
-        "announced": false
+        "note": ""
     },
     {
         "slot": "",
@@ -80,8 +102,7 @@
         "event": "",
         "location": "",
         "contact": "",
-        "note": "",
-        "announced": false
+        "note": ""
     },
     {
         "slot": "",
@@ -92,8 +113,7 @@
         "event": "",
         "location": "",
         "contact": "",
-        "note": "",
-        "announced": false
+        "note": ""
     },
     {
         "slot": "",
@@ -104,8 +124,7 @@
         "event": "",
         "location": "",
         "contact": "",
-        "note": "",
-        "announced": false
+        "note": ""
     },
     {
         "slot": "",
@@ -116,8 +135,7 @@
         "event": "",
         "location": "",
         "contact": "",
-        "note": "",
-        "announced": false
+        "note": ""
     },
     {
         "slot": "",
@@ -128,8 +146,7 @@
         "event": "",
         "location": "",
         "contact": "",
-        "note": "",
-        "announced": false
+        "note": ""
     },
     {
         "slot": "",
@@ -140,8 +157,7 @@
         "event": "",
         "location": "",
         "contact": "",
-        "note": "",
-        "announced": false
+        "note": ""
     },
     {
         "slot": "",
@@ -152,8 +168,7 @@
         "event": "",
         "location": "",
         "contact": "",
-        "note": "",
-        "announced": false
+        "note": ""
     },
     {
         "slot": "",
@@ -164,8 +179,7 @@
         "event": "",
         "location": "",
         "contact": "",
-        "note": "",
-        "announced": false
+        "note": ""
     },
     {
         "slot": "",
@@ -176,8 +190,7 @@
         "event": "",
         "location": "",
         "contact": "",
-        "note": "",
-        "announced": false
+        "note": ""
     },
     {
         "slot": "",
@@ -188,8 +201,7 @@
         "event": "",
         "location": "",
         "contact": "",
-        "note": "",
-        "announced": false
+        "note": ""
     },
     {
         "slot": "",
@@ -200,8 +212,7 @@
         "event": "",
         "location": "",
         "contact": "",
-        "note": "",
-        "announced": false
+        "note": ""
     },
     {
         "slot": "",
@@ -212,8 +223,7 @@
         "event": "",
         "location": "",
         "contact": "",
-        "note": "",
-        "announced": false
+        "note": ""
     },
     {
         "slot": "",
@@ -224,8 +234,7 @@
         "event": "",
         "location": "",
         "contact": "",
-        "note": "",
-        "announced": false
+        "note": ""
     },
     {
         "slot": "",
@@ -236,8 +245,7 @@
         "event": "",
         "location": "",
         "contact": "",
-        "note": "",
-        "announced": false
+        "note": ""
     },
     {
         "slot": "",
@@ -248,8 +256,7 @@
         "event": "",
         "location": "",
         "contact": "",
-        "note": "",
-        "announced": false
+        "note": ""
     },
     {
         "slot": "",
@@ -260,8 +267,7 @@
         "event": "",
         "location": "",
         "contact": "",
-        "note": "",
-        "announced": false
+        "note": ""
     },
     {
         "slot": "",
@@ -272,8 +278,7 @@
         "event": "",
         "location": "",
         "contact": "",
-        "note": "",
-        "announced": false
+        "note": ""
     },
     {
         "slot": "",
@@ -284,8 +289,7 @@
         "event": "",
         "location": "",
         "contact": "",
-        "note": "",
-        "announced": false
+        "note": ""
     },
     {
         "slot": "",
@@ -296,8 +300,7 @@
         "event": "",
         "location": "",
         "contact": "",
-        "note": "",
-        "announced": false
+        "note": ""
     },
     {
         "slot": "",
@@ -308,8 +311,7 @@
         "event": "",
         "location": "",
         "contact": "",
-        "note": "",
-        "announced": false
+        "note": ""
     },
     {
         "slot": "",
@@ -320,8 +322,7 @@
         "event": "",
         "location": "",
         "contact": "",
-        "note": "",
-        "announced": false
+        "note": ""
     },
     {
         "slot": "",
@@ -332,8 +333,7 @@
         "event": "",
         "location": "",
         "contact": "",
-        "note": "",
-        "announced": false
+        "note": ""
     },
     {
         "slot": "",
@@ -344,8 +344,7 @@
         "event": "",
         "location": "",
         "contact": "",
-        "note": "",
-        "announced": false
+        "note": ""
     },
     {
         "slot": "",
@@ -356,8 +355,7 @@
         "event": "",
         "location": "",
         "contact": "",
-        "note": "",
-        "announced": false
+        "note": ""
     },
     {
         "slot": "",
@@ -368,8 +366,7 @@
         "event": "",
         "location": "",
         "contact": "",
-        "note": "",
-        "announced": false
+        "note": ""
     },
     {
         "slot": "",
@@ -380,8 +377,7 @@
         "event": "",
         "location": "",
         "contact": "",
-        "note": "",
-        "announced": false
+        "note": ""
     },
     {
         "slot": "",
@@ -392,8 +388,7 @@
         "event": "",
         "location": "",
         "contact": "",
-        "note": "",
-        "announced": false
+        "note": ""
     },
     {
         "slot": "",
@@ -404,8 +399,7 @@
         "event": "",
         "location": "",
         "contact": "",
-        "note": "",
-        "announced": false
+        "note": ""
     },
     {
         "slot": "",
@@ -416,8 +410,7 @@
         "event": "",
         "location": "",
         "contact": "",
-        "note": "",
-        "announced": false
+        "note": ""
     },
     {
         "slot": "",
@@ -428,19 +421,6 @@
         "event": "",
         "location": "",
         "contact": "",
-        "note": "",
-        "announced": false
-    },
-    {
-        "slot": "",
-        "start": "",
-        "end": "",
-        "duration": "",
-        "department": "",
-        "event": "",
-        "location": "",
-        "contact": "",
-        "note": "",
-        "announced": false
+        "note": ""
     }
 ]

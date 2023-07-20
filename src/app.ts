@@ -7,8 +7,7 @@ import mongoose from 'mongoose';
 import apController from './controllers/ap.controller';
 import userController from './controllers/user.controller';
 import webhookController from './controllers/webhook.controller';
-import { syncData } from './utils/localData.util';
-import { announceSlot, findActiveSlots } from './services/ap.service';
+import apService from './services/ap.service';
 
 dotenv.config();
 
@@ -28,12 +27,11 @@ mongoose
 
 cron.schedule('* * * * *', () => {
     console.log('checking schedule');
-    announceSlot('Sheet1', findActiveSlots('Sheet1'));
 });
 
 cron.schedule('*/20 * * * *', async () => {
     console.log('syncing google sheet');
-    await syncData('Sheet1');
+    await apService.syncSheet('Sheet1');
 });
 
 app.use(

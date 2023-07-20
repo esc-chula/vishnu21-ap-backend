@@ -1,12 +1,20 @@
+import { ISlot } from '@/interfaces/ap';
 import { IEvent } from '@/interfaces/webhook';
-import { findActiveSlots } from '@/services/ap.service';
+import apService from '@/services/ap.service';
 import webhookService from '@/services/webhook.service';
 import express from 'express';
 
 const router = express.Router();
 
 router.post('/', async (req, res) => {
-    const activeApData = findActiveSlots('Sheet1');
+    const activeApData = apService.findActiveSlots();
+
+    if (!activeApData) {
+        return res.status(400).send({
+            success: false,
+            message: 'Error fetching data',
+        });
+    }
 
     await req.body.events
         .filter(
@@ -16,7 +24,10 @@ router.post('/', async (req, res) => {
         .forEach(async (event: IEvent) => {
             switch (event.message.text) {
                 case 'active':
-                    await webhookService.announceSlot(event, activeApData);
+                    await webhookService.announceSlot(
+                        event,
+                        Object(activeApData) as ISlot[]
+                    );
                     break;
             }
         });
