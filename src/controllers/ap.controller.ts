@@ -46,6 +46,23 @@ router.get('/active', async (req, res) => {
     });
 });
 
+router.get('/upcoming', async (req, res) => {
+    const upcomingSlots = await apService.findUpcomingSlots();
+
+    if (!upcomingSlots) {
+        return res.status(400).send({
+            success: false,
+            message: 'Error fetching data',
+        });
+    }
+
+    return res.status(200).send({
+        success: true,
+        message: 'Data fetched successfully',
+        data: upcomingSlots,
+    });
+});
+
 router.post('/announce', async (req, res) => {
     const announcingSlots = await apService.announceSlots();
     await apService.multicastAnnounceSlots();

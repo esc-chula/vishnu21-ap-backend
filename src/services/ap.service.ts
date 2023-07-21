@@ -59,6 +59,22 @@ const findAnnouncedSlots = async () => {
         .sort((a, b) => a.slot - b.slot) as ISlot[];
 };
 
+const findUpcomingSlots = async () => {
+    const slots = await ApModel.find({
+        announced: false,
+    })
+        .then((slot) => slot)
+        .catch(() => null);
+
+    if (!slots) {
+        return null;
+    }
+
+    return slots
+        .filter((slot) => slot.slot)
+        .sort((a, b) => a.slot - b.slot) as ISlot[];
+};
+
 const updateBySlot = async (
     slot: number,
     body: {
@@ -353,6 +369,7 @@ export default {
     create,
     findAll,
     findAnnouncedSlots,
+    findUpcomingSlots,
     updateBySlot,
     getSheet,
     syncSheet,
