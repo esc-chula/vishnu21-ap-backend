@@ -73,6 +73,33 @@ router.post('/announce', async (req, res) => {
     });
 });
 
+router.post('/announce/reset', async (req, res) => {
+    const slots = await apService.findAnnouncedSlots();
+
+    if (!slots) {
+        return res.status(400).send({
+            success: false,
+            message: 'Error fetching data',
+        });
+    }
+
+    const updatedSlots = [] as ISlot[];
+
+    for (const slot of slots) {
+        const updatedSlot = await apService.updateBySlot(slot.slot, {
+            announced: false,
+        });
+
+        updatedSlots.push(updatedSlot);
+    }
+
+    return res.status(200).send({
+        success: true,
+        message: 'Announced slots reset successfully',
+        data: updatedSlots,
+    });
+});
+
 router.patch('/offset', async (req, res) => {
     const { slot, offset } = req.body;
 

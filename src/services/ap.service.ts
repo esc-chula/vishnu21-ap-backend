@@ -44,6 +44,22 @@ const findOneBySlot = async (slot: number) => {
     return slotData as ISlot;
 };
 
+const findAnnouncedSlots = async () => {
+    const slots = await ApModel.find({
+        announced: true,
+    })
+        .then((slot) => slot)
+        .catch(() => null);
+
+    if (!slots) {
+        return null;
+    }
+
+    return slots
+        .filter((slot) => slot.slot)
+        .sort((a, b) => a.slot - b.slot) as ISlot[];
+};
+
 const updateBySlot = async (
     slot: number,
     body: {
@@ -302,6 +318,7 @@ const announceOffset = async () => {};
 export default {
     create,
     findAll,
+    findAnnouncedSlots,
     updateBySlot,
     getSheet,
     syncSheet,
