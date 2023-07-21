@@ -93,6 +93,7 @@ const getSheet = async (sheet: string) => {
     const slots: ISlot[] | null = await axios
         .get(process.env.AP_SHEET_API!, {
             params: {
+                action: 'getSlots',
                 sheet,
             },
         })
@@ -286,7 +287,19 @@ const multicastAnnounceSlots = async () => {
     }
 };
 
-const setOffset = async (slot: number, offset: number) => {
+const updateOffsetInSheet = async (sheet: string, updateData: any) => {
+    await axios
+        .post(process.env.AP_SHEET_API!, updateData, {
+            params: {
+                action: 'updateSlots',
+                sheet,
+            },
+        })
+        .then(() => {})
+        .catch(() => {});
+};
+
+const setOffset = async (sheet: string, slot: number, offset: number) => {
     const slots = await findAll();
 
     if (!slots) return null;
@@ -307,7 +320,16 @@ const setOffset = async (slot: number, offset: number) => {
         updatedSlots.push(updatedSlot);
     }
 
-    console.log('slots have been set offset by', offset);
+    const sheetUpdateData = {} as Record<string, any>;
+
+    for (const slot of updatedSlots) {
+        sheetUpdateData[`B${slot.slot + 2}`] = moment(slot.start).format(
+            'HH:mm'
+        );
+        sheetUpdateData[`C${slot.slot + 2}`] = moment(slot.end).format('HH:mm');
+    }
+
+    await updateOffsetInSheet(sheet, sheetUpdateData);
 
     await messageUtil.sendMessage('broadcast', {
         messages: [
@@ -323,8 +345,6 @@ const setOffset = async (slot: number, offset: number) => {
     return updatedSlots;
 };
 
-const announceOffset = async () => {};
-
 export default {
     create,
     findAll,
@@ -335,6 +355,6 @@ export default {
     findActiveSlots,
     announceSlots,
     multicastAnnounceSlots,
+    updateOffsetInSheet,
     setOffset,
-    announceOffset,
 };

@@ -98,7 +98,7 @@ router.post('/announce/reset', async (req, res) => {
 router.patch('/offset', async (req, res) => {
     const { slot, offset } = req.body;
 
-    const updatedSlot = await apService.setOffset(slot, offset);
+    const updatedSlot = await apService.setOffset('Sheet1', slot, offset);
 
     if (!updatedSlot) {
         return res.status(400).send({
