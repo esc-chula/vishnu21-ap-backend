@@ -22,10 +22,19 @@ router.post('/sync', async (req, res) => {
 });
 
 router.get('/', async (req, res) => {
+    const slots = await apService.findAll();
+
+    if (!slots) {
+        return res.status(400).send({
+            success: false,
+            message: 'Error fetching data',
+        });
+    }
+
     return res.status(200).send({
         success: true,
         message: 'Data fetched successfully',
-        data: require('@/data/Sheet1.json'),
+        data: slots,
     });
 });
 
