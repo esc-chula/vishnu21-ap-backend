@@ -246,6 +246,10 @@ const multicastAnnounceSlots = async () => {
             const start = moment(slot.start).format('HH:mm');
             const end = moment(slot.end).format('HH:mm');
 
+            const contactRegex = /(.+?) \((\d{3}-\d{3}-\d{4})\)/;
+
+            const contactMatches = slot.contact.match(contactRegex);
+
             const content = flexTemplate.slotBubble({
                 slot: slot.slot,
                 department: slot.department,
@@ -254,8 +258,8 @@ const multicastAnnounceSlots = async () => {
                 event: slot.event,
                 location: slot.location,
                 note: slot.note,
-                contactName: 'ปูน',
-                contactTel: '0918751929',
+                contactName: contactMatches ? contactMatches[1] : 'พร้อม',
+                contactTel: contactMatches ? contactMatches[2] : '085-220-0765',
             });
 
             return content;
