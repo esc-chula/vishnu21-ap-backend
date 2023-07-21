@@ -168,7 +168,7 @@ const announceSlots = async () => {
 };
 
 const multicastAnnounceSlots = async () => {
-    const announcingSlots = await findActiveSlots();
+    const announcingSlots = await announceSlots();
 
     if (!announcingSlots) {
         return null;

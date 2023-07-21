@@ -26,7 +26,8 @@ mongoose
     });
 
 cron.schedule('* * * * *', () => {
-    console.log('checking schedule');
+    console.log('checking active slots');
+    apService.multicastAnnounceSlots();
 });
 
 cron.schedule('*/20 * * * *', async () => {
