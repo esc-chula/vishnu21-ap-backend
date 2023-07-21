@@ -37,7 +37,7 @@ cron.schedule('*/20 * * * *', async () => {
 
 app.use(
     cors({
-        origin: '*',
+        origin: ['https://ap-front.vishnu21.chula.engineering'],
     })
 );
 
