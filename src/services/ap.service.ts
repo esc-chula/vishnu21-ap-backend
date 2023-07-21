@@ -1,6 +1,5 @@
 import moment from 'moment';
 import { ISlot } from '@/interfaces/ap';
-import webhookService from './webhook.service';
 import ApModel from '@/models/ap.model';
 import { TDepartment } from '@/interfaces/department';
 import axios from 'axios';
@@ -309,6 +308,17 @@ const setOffset = async (slot: number, offset: number) => {
     }
 
     console.log('slots have been set offset by', offset);
+
+    await messageUtil.sendMessage('broadcast', {
+        messages: [
+            {
+                type: 'text',
+                text: `${
+                    offset === 0 ? 0 : offset > 0 ? `+${offset}` : offset
+                } นาที ตั้งแต่ Slot ที่ ${slot} เป็นต้นไป`,
+            },
+        ],
+    });
 
     return updatedSlots;
 };

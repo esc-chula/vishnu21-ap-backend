@@ -1,6 +1,9 @@
 import https from 'https';
 
-const sendMessage = async (path: 'reply' | 'push' | 'multicast', data: any) => {
+const sendMessage = async (
+    path: 'reply' | 'push' | 'multicast' | 'broadcast',
+    data: any
+) => {
     const dataString = JSON.stringify(data);
 
     // Options to pass into the request

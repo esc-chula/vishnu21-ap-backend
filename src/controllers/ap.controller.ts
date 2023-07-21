@@ -1,11 +1,6 @@
 import { ISlot } from '@/interfaces/ap';
 import apService from '@/services/ap.service';
-import userService from '@/services/user.service';
-import flexTemplate from '@/templates/flex.template';
-import messageTemplate from '@/templates/message.template';
-import messageUtil from '@/utils/message.util';
 import express from 'express';
-import moment from 'moment';
 
 const router = express.Router();
 
