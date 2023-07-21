@@ -1,3 +1,4 @@
+import { TDepartment } from '@/interfaces/department';
 import { IUser, UpdateUserDTO } from '@/interfaces/user';
 import UserModel from '@/models/user.model';
 
@@ -29,6 +30,18 @@ const findByStudentId = async (studentId: string) => {
     return user;
 };
 
+const findUserIdBySelectedDepartments = async (
+    selectedDepartments: TDepartment[]
+) => {
+    const userIds = await UserModel.find({
+        selectedDepartments: { $in: selectedDepartments },
+    })
+        .then((users) => users.map((user) => user.userId))
+        .catch(() => null);
+
+    return userIds;
+};
+
 const updateByUserId = async (userId: string, body: UpdateUserDTO) => {
     const updatedUser = await UserModel.findOneAndUpdate({ userId }, body, {
         new: true,
@@ -54,6 +67,7 @@ export default {
     findAll,
     findByUserId,
     findByStudentId,
+    findUserIdBySelectedDepartments,
     updateByUserId,
     updateByStudentId,
 };

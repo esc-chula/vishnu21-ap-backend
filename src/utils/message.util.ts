@@ -34,4 +34,21 @@ const sendMessage = async (path: 'reply' | 'push' | 'multicast', data: any) => {
     return;
 };
 
-export default { sendMessage };
+const groupMessage = <T>(
+    obj: Record<string, T[]>
+): Record<string, string[]> => {
+    const groupedObj: Record<string, string[]> = {};
+
+    for (const key in obj) {
+        const value = JSON.stringify(obj[key]);
+        if (groupedObj[value]) {
+            groupedObj[value].push(key);
+        } else {
+            groupedObj[value] = [key];
+        }
+    }
+
+    return groupedObj;
+};
+
+export default { sendMessage, groupMessage };

@@ -4,6 +4,10 @@ import webhookService from './webhook.service';
 import ApModel from '@/models/ap.model';
 import { TDepartment } from '@/interfaces/department';
 import axios from 'axios';
+import messageTemplate from '@/templates/message.template';
+import flexTemplate from '@/templates/flex.template';
+import messageUtil from '@/utils/message.util';
+import userService from './user.service';
 
 const create = async (body: ISlot) => {
     const createdSlot = await ApModel.create(body)
@@ -154,13 +158,117 @@ const announceSlots = async () => {
 
             const updatedSlot = await updateBySlot(slot.slot, slot);
 
-            announcingSlots.push(Object(updatedSlot));
+            announcingSlots.push(updatedSlot);
         }
     }
 
     console.log('slots have been announced');
 
     return announcingSlots;
+};
+
+const multicastAnnounceSlots = async () => {
+    const announcingSlots = await findActiveSlots();
+
+    if (!announcingSlots) {
+        return null;
+    }
+
+    const users = await userService.findAll();
+
+    if (!users) {
+        return null;
+    }
+
+    const userContents = {} as {
+        [key: string]: number[];
+    };
+
+    for (const user of users) {
+        for (const slot of announcingSlots) {
+            if (
+                user.selectedDepartments.includes(slot.department) &&
+                user.enableBot
+            ) {
+                if (!userContents[user.userId as keyof typeof userContents]) {
+                    Object.defineProperty(userContents, user.userId, {
+                        value: [],
+                        writable: true,
+                        enumerable: true,
+                        configurable: true,
+                    });
+                }
+
+                userContents[user.userId as keyof typeof userContents].push(
+                    slot.slot
+                );
+            }
+        }
+    }
+
+    const groupedUserContents = messageUtil.groupMessage(userContents);
+
+    for (const key of Object.keys(groupedUserContents)) {
+        const slotIndexes = JSON.parse(key) as number[];
+        const userIds = groupedUserContents[key];
+
+        const slots = [] as ISlot[];
+
+        slotIndexes.forEach((slotIndex) => {
+            const slot = announcingSlots.find(
+                (slot) => slot.slot === slotIndex
+            );
+
+            if (slot) slots.push(slot);
+        });
+
+        const contents = slots.map((slot) => {
+            if (!slot) {
+                return null;
+            }
+
+            const start = moment(slot.start).format('HH:mm');
+            const end = moment(slot.end).format('HH:mm');
+
+            const content = flexTemplate.slotBubble({
+                slot: slot.slot,
+                department: slot.department,
+                start: start,
+                end: end,
+                event: slot.event,
+                location: slot.location,
+                note: slot.note,
+                contactName: 'ปูน',
+                contactTel: '0918751929',
+            });
+
+            return content;
+        });
+
+        const message = messageTemplate.message({
+            type: 'flex',
+            altText: slots
+                .map((slot, index) => {
+                    const start = moment(slot.start).format('HH:mm');
+                    const end = moment(slot.end).format('HH:mm');
+                    return `${slot.event} ${start}-${end} ${
+                        index === slots.length - 1 ? '' : '|'
+                    }`;
+                })
+                .join(' '),
+            contents: {
+                type: 'carousel',
+                contents: contents,
+            },
+        });
+
+        const replyData = {
+            to: userIds,
+            messages: [message],
+        };
+
+        await messageUtil.sendMessage('multicast', replyData);
+    }
 };
 
 const setOffset = async (slot: number, offset: number) => {
@@ -199,6 +307,7 @@ export default {
     syncSheet,
     findActiveSlots,
     announceSlots,
+    multicastAnnounceSlots,
     setOffset,
     announceOffset,
 };

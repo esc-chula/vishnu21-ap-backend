@@ -117,7 +117,7 @@ const slotBubble = ({
                                 },
                                 {
                                     type: 'text',
-                                    text: `${note}`,
+                                    text: `${note ? note : '-'}`,
                                     color: '#334155',
                                 },
                             ],

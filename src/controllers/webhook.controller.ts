@@ -7,7 +7,7 @@ import express from 'express';
 const router = express.Router();
 
 router.post('/', async (req, res) => {
-    const activeApData = apService.findActiveSlots();
+    const activeApData = await apService.findActiveSlots();
 
     if (!activeApData) {
         return res.status(400).send({
@@ -24,10 +24,7 @@ router.post('/', async (req, res) => {
         .forEach(async (event: IEvent) => {
             switch (event.message.text) {
                 case 'active':
-                    await webhookService.announceSlot(
-                        event,
-                        Object(activeApData) as ISlot[]
-                    );
+                    await webhookService.announceSlot(event, activeApData);
                     break;
             }
         });
