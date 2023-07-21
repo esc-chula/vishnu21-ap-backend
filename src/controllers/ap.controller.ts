@@ -6,7 +6,7 @@ const router = express.Router();
 
 // sync data from google sheet
 router.post('/sync', async (req, res) => {
-    const syncedData = await apService.syncSheet('Sheet1');
+    const syncedData = await apService.syncSheet(process.env.SHEET_NAME!);
 
     if (!syncedData) {
         return res.status(400).send({
@@ -115,7 +115,11 @@ router.post('/announce/reset', async (req, res) => {
 router.patch('/offset', async (req, res) => {
     const { slot, offset } = req.body;
 
-    const updatedSlot = await apService.setOffset('Sheet1', slot, offset);
+    const updatedSlot = await apService.setOffset(
+        process.env.SHEET_NAME!,
+        slot,
+        offset
+    );
 
     if (!updatedSlot) {
         return res.status(400).send({

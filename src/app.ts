@@ -32,7 +32,7 @@ cron.schedule('* * * * *', () => {
 
 cron.schedule('*/20 * * * *', async () => {
     console.log('syncing google sheet');
-    await apService.syncSheet('Sheet1');
+    await apService.syncSheet(process.env.SHEET_NAME!);
 });
 
 app.use(
@@ -51,7 +51,7 @@ app.use('/webhook', webhookController);
 app.get('/', async (req, res) => {
     res.send({
         success: true,
-        message: 'Server is running',
+        message: `Server is running watching ${process.env.SHEET_NAME}`,
     });
 });
 
