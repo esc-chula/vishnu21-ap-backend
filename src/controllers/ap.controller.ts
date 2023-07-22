@@ -1,6 +1,7 @@
 import { ISlot } from '@/interfaces/ap';
 import apService from '@/services/ap.service';
 import express from 'express';
+import moment from 'moment';
 
 const router = express.Router();
 
@@ -35,6 +36,47 @@ router.get('/', async (req, res) => {
         success: true,
         message: 'Data fetched successfully',
         data: slots,
+    });
+});
+
+router.get('/check/:slot', async (req, res) => {
+    const slot = await apService.findOneBySlot(parseInt(req.params.slot));
+
+    if (!slot) {
+        return res.status(400).send({
+            success: false,
+            message: 'Error fetching data',
+        });
+    }
+
+    const start = moment(moment(slot.start).format('HH:mm:ss'), 'HH:mm:ss');
+    const end = moment(moment(slot.end).format('HH:mm:ss'), 'HH:mm:ss');
+
+    console.log(start);
+
+    if (!slot) {
+        return res.status(400).send({
+            success: false,
+            message: 'Error fetching data',
+        });
+    }
+
+    return res.status(200).send({
+        success: true,
+        message: 'Data fetched successfully',
+        data: {
+            _id: slot._id,
+            slot: slot.slot,
+            start: start.format('HH:mm'),
+            end: end.format('HH:mm'),
+            duration: slot.duration,
+            department: slot.department,
+            event: slot.event,
+            location: slot.location,
+            contact: slot.contact,
+            note: slot.note,
+            announced: slot.announced,
+        },
     });
 });
 

@@ -1,6 +1,7 @@
 import { TDepartment } from './department';
 
 export interface ISlot {
+    _id?: string;
     slot: number;
     start: string;
     end: string;

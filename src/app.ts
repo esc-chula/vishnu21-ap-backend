@@ -3,6 +3,8 @@ import cors from 'cors';
 import cron from 'node-cron';
 import dotenv from 'dotenv';
 import express from 'express';
+import moment from 'moment';
+import 'moment-timezone';
 import mongoose from 'mongoose';
 import apController from './controllers/ap.controller';
 import userController from './controllers/user.controller';
@@ -12,6 +14,8 @@ import apService from './services/ap.service';
 dotenv.config();
 
 const app = express();
+
+moment.tz.setDefault('Asia/Bangkok');
 
 mongoose
     .connect(

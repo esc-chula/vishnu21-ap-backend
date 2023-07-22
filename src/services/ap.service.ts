@@ -368,6 +368,7 @@ const setOffset = async (sheet: string, slot: number, offset: number) => {
 export default {
     create,
     findAll,
+    findOneBySlot,
     findAnnouncedSlots,
     findUpcomingSlots,
     updateBySlot,
