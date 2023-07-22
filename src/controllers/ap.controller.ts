@@ -49,17 +49,14 @@ router.get('/check/:slot', async (req, res) => {
         });
     }
 
-    const start = moment(moment(slot.start).format('HH:mm:ss'), 'HH:mm:ss');
-    const end = moment(moment(slot.end).format('HH:mm:ss'), 'HH:mm:ss');
-
-    console.log(start);
-
-    if (!slot) {
-        return res.status(400).send({
-            success: false,
-            message: 'Error fetching data',
-        });
-    }
+    const start = moment(
+        moment(slot.start).format('HH:mm:ss'),
+        'HH:mm:ss'
+    ).format();
+    const end = moment(
+        moment(slot.end).format('HH:mm:ss'),
+        'HH:mm:ss'
+    ).format();
 
     return res.status(200).send({
         success: true,
@@ -67,8 +64,8 @@ router.get('/check/:slot', async (req, res) => {
         data: {
             _id: slot._id,
             slot: slot.slot,
-            start: start.format('HH:mm'),
-            end: end.format('HH:mm'),
+            start: start,
+            end: end,
             duration: slot.duration,
             department: slot.department,
             event: slot.event,

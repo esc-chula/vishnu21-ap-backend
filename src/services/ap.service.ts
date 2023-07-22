@@ -139,6 +139,18 @@ const syncSheet = async (sheet: string) => {
             return createdSlot;
         }
 
+        const start = moment(
+            moment(slot.start).format('HH:mm:ss'),
+            'HH:mm:ss'
+        ).format();
+        const end = moment(
+            moment(slot.end).format('HH:mm:ss'),
+            'HH:mm:ss'
+        ).format();
+
+        slot.start = start;
+        slot.end = end;
+
         const updatedSlot = await updateBySlot(slot.slot, slot);
 
         return updatedSlot;
@@ -194,7 +206,7 @@ const announceSlots = async () => {
         }
     }
 
-    console.log('slots have been announced');
+    console.log(`${announcingSlots.length} slots have been announced`);
 
     return announcingSlots;
 };
