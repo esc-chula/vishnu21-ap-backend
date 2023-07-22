@@ -29,15 +29,15 @@ mongoose
         console.log(err);
     });
 
-cron.schedule('* * * * *', () => {
-    console.log('checking active slots');
-    apService.multicastAnnounceSlots();
-});
+// cron.schedule('* * * * *', () => {
+//     console.log('checking active slots');
+//     apService.multicastAnnounceSlots();
+// });
 
-cron.schedule('*/20 * * * *', async () => {
-    console.log('syncing google sheet');
-    await apService.syncSheet(process.env.SHEET_NAME!);
-});
+// cron.schedule('*/20 * * * *', async () => {
+//     console.log('syncing google sheet');
+//     await apService.syncSheet(process.env.SHEET_NAME!);
+// });
 
 app.use(
     cors({

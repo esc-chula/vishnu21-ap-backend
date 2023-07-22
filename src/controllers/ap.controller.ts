@@ -18,7 +18,7 @@ router.post('/sync', async (req, res) => {
 
     return res.status(200).send({
         success: true,
-        message: 'Data synced successfully',
+        message: `Synced ${syncedData.length} slots successfully`,
     });
 });
 

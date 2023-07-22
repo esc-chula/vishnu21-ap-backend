@@ -133,12 +133,6 @@ const syncSheet = async (sheet: string) => {
     const syncedSheet = slots.map(async (slot) => {
         const existedSlot = await findOneBySlot(slot.slot);
 
-        if (!existedSlot) {
-            const createdSlot = await create({ ...slot, announced: false });
-
-            return createdSlot;
-        }
-
         const start = moment(
             moment(slot.start).format('HH:mm:ss'),
             'HH:mm:ss'
@@ -150,6 +144,12 @@ const syncSheet = async (sheet: string) => {
 
         slot.start = start;
         slot.end = end;
+
+        if (!existedSlot) {
+            const createdSlot = await create({ ...slot, announced: false });
+
+            return createdSlot;
+        }
 
         const updatedSlot = await updateBySlot(slot.slot, slot);
 

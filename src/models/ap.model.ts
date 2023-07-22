@@ -21,8 +21,8 @@ const ApSchema: Schema<Ap> = new Schema({
     duration: { type: String, required: true },
     department: { type: String, required: true },
     event: { type: String, required: true },
-    location: { type: String, required: true },
-    contact: { type: String, required: true },
+    location: { type: String, required: false },
+    contact: { type: String, required: false },
     note: { type: String, required: false },
     announced: { type: Boolean, required: false },
 });
