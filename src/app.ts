@@ -15,7 +15,7 @@ dotenv.config();
 
 const app = express();
 
-moment.tz.setDefault('Asia/Bangkok');
+// moment.tz.setDefault('Asia/Bangkok');
 
 mongoose
     .connect(
