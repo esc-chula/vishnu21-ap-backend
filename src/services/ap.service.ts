@@ -218,6 +218,8 @@ const multicastAnnounceSlots = async () => {
         return null;
     }
 
+    console.log(announcingSlots);
+
     const users = await userService.findAll();
 
     if (!users) {
