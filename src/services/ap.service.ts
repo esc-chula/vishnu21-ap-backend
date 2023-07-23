@@ -344,6 +344,14 @@ const setOffset = async (sheet: string, slot: number, offset: number) => {
         const start = moment(slot.start).add(offset, 'minutes').format();
         const end = moment(slot.end).add(offset, 'minutes').format();
 
+        console.log(
+            `${slot.slot}, ${moment(slot.start).format('HH:mm')} -> ${moment(
+                start
+            ).format('HH:mm')}, ${moment(slot.end).format('HH:mm')} -> ${moment(
+                end
+            ).format('HH:mm')}`
+        );
+
         const updatedSlot = (await updateBySlot(slot.slot, {
             start,
             end,

@@ -178,7 +178,7 @@ router.patch('/offset', async (req, res) => {
 
     return res.status(200).send({
         success: true,
-        message: 'Offset updated successfully',
+        message: `Updated ${updatedSlot.length} slots successfully`,
         data: updatedSlot,
     });
 });
