@@ -382,16 +382,16 @@ const setOffset = async (sheet: string, slot: number, offset: number) => {
 
     await updateOffsetInSheet(sheet, sheetUpdateData);
 
-    // await messageUtil.sendMessage('broadcast', {
-    //     messages: [
-    //         {
-    //             type: 'text',
-    //             text: `${
-    //                 offset === 0 ? 0 : offset > 0 ? `+${offset}` : offset
-    //             } นาที ตั้งแต่ Slot ที่ ${slot} เป็นต้นไป`,
-    //         },
-    //     ],
-    // });
+    await messageUtil.sendMessage('broadcast', {
+        messages: [
+            {
+                type: 'text',
+                text: `${
+                    offset === 0 ? 0 : offset > 0 ? `+${offset}` : offset
+                } นาที ตั้งแต่ Slot ที่ ${slot} เป็นต้นไป`,
+            },
+        ],
+    });
 
     return updatedSlots;
 };
