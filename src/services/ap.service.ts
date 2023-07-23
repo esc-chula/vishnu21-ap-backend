@@ -133,14 +133,12 @@ const syncSheet = async (sheet: string) => {
     const syncedSheet = slots.map(async (slot) => {
         const existedSlot = await findOneBySlot(slot.slot);
 
-        const start = moment(
-            moment(slot.start).format('HH:mm:ss'),
-            'HH:mm:ss'
-        ).format();
-        const end = moment(
-            moment(slot.end).format('HH:mm:ss'),
-            'HH:mm:ss'
-        ).format();
+        const start = moment(moment(slot.start).format('HH:mm:ss'), 'HH:mm:ss')
+            .utc()
+            .format();
+        const end = moment(moment(slot.end).format('HH:mm:ss'), 'HH:mm:ss')
+            .utc()
+            .format();
 
         slot.start = start;
         slot.end = end;
@@ -171,12 +169,15 @@ const findActiveSlots = async () => {
     }
 
     const activeSlots = slots.filter((slot) => {
-        const currentTime = moment();
+        const currentTime = moment().utcOffset(7);
         const startTime = moment(
             moment(slot.start).format('HH:mm:ss'),
             'HH:mm:ss'
-        );
-        const endTime = moment(moment(slot.end).format('HH:mm:ss'), 'HH:mm:ss');
+        ).utcOffset(7);
+        const endTime = moment(
+            moment(slot.end).format('HH:mm:ss'),
+            'HH:mm:ss'
+        ).utcOffset(7);
         const isBetween = currentTime.isBetween(startTime, endTime);
         const isSameAsStart =
             currentTime.format('HH:mm') === startTime.format('HH:mm');
@@ -273,8 +274,8 @@ const multicastAnnounceSlots = async () => {
                 return null;
             }
 
-            const start = moment(slot.start).format('HH:mm');
-            const end = moment(slot.end).format('HH:mm');
+            const start = moment(slot.start).utcOffset(7).format('HH:mm');
+            const end = moment(slot.end).utcOffset(7).format('HH:mm');
 
             const contactRegex = /(.+?) \((\d{3}-\d{3}-\d{4})\)/;
 
@@ -299,8 +300,10 @@ const multicastAnnounceSlots = async () => {
             type: 'flex',
             altText: slots
                 .map((slot, index) => {
-                    const start = moment(slot.start).format('HH:mm');
-                    const end = moment(slot.end).format('HH:mm');
+                    const start = moment(slot.start)
+                        .utcOffset(7)
+                        .format('HH:mm');
+                    const end = moment(slot.end).utcOffset(7).format('HH:mm');
                     return `${slot.event} ${start}-${end} ${
                         index === slots.length - 1 ? '' : '|'
                     }`;
@@ -343,8 +346,14 @@ const setOffset = async (sheet: string, slot: number, offset: number) => {
     const updatedSlots = [] as ISlot[];
 
     for (const slot of targetSlots) {
-        const start = moment(slot.start).add(offset, 'minutes').format();
-        const end = moment(slot.end).add(offset, 'minutes').format();
+        const start = moment(slot.start)
+            .utcOffset(7)
+            .add(offset, 'minutes')
+            .format();
+        const end = moment(slot.end)
+            .utcOffset(7)
+            .add(offset, 'minutes')
+            .format();
 
         console.log(
             `${slot.slot}, ${moment(slot.start).format('HH:mm')} -> ${moment(

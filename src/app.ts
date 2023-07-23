@@ -15,7 +15,7 @@ dotenv.config();
 
 const app = express();
 
-moment.tz.setDefault('Asia/Bangkok');
+// moment.tz.setDefault('Asia/Bangkok');
 
 mongoose
     .connect(
@@ -29,10 +29,10 @@ mongoose
         console.log(err);
     });
 
-cron.schedule('* * * * *', () => {
-    console.log('checking active slots');
-    apService.multicastAnnounceSlots();
-});
+// cron.schedule('* * * * *', () => {
+//     console.log('checking active slots');
+//     apService.multicastAnnounceSlots();
+// });
 
 // cron.schedule('*/20 * * * *', async () => {
 //     console.log('syncing google sheet');
