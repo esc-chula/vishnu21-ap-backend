@@ -29,10 +29,10 @@ mongoose
         console.log(err);
     });
 
-// cron.schedule('* * * * *', () => {
-//     console.log('checking active slots');
-//     apService.multicastAnnounceSlots();
-// });
+cron.schedule('* * * * *', () => {
+    console.log('checking active slots');
+    apService.multicastAnnounceSlots();
+});
 
 // cron.schedule('*/20 * * * *', async () => {
 //     console.log('syncing google sheet');
