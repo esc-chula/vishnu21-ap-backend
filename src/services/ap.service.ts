@@ -7,6 +7,7 @@ import messageTemplate from '@/templates/message.template';
 import flexTemplate from '@/templates/flex.template';
 import messageUtil from '@/utils/message.util';
 import userService from './user.service';
+import { FlexBubble } from '@line/bot-sdk';
 
 const create = async (body: ISlot) => {
     const createdSlot = await ApModel.create(body)
@@ -269,35 +270,38 @@ const multicastAnnounceSlots = async () => {
             if (slot) slots.push(slot);
         });
 
-        const contents = slots.map((slot) => {
-            if (!slot) {
-                return null;
-            }
+        const contents = slots
+            .map((slot) => {
+                if (!slot) {
+                    return null;
+                }
 
-            const start = moment(slot.start).utcOffset(7).format('HH:mm');
-            const end = moment(slot.end).utcOffset(7).format('HH:mm');
+                const start = moment(slot.start).utcOffset(7).format('HH:mm');
+                const end = moment(slot.end).utcOffset(7).format('HH:mm');
 
-            const contactRegex = /(.+?) \((\d{3}-\d{3}-\d{4})\)/;
+                const contactRegex = /(.+?) \((\d{3}-\d{3}-\d{4})\)/;
 
-            const contactMatches = slot.contact.match(contactRegex);
+                const contactMatches = slot.contact.match(contactRegex);
 
-            const content = flexTemplate.slotBubble({
-                slot: slot.slot,
-                department: slot.department,
-                start: start,
-                end: end,
-                event: slot.event,
-                location: slot.location,
-                note: slot.note,
-                contactName: contactMatches ? contactMatches[1] : 'พร้อม',
-                contactTel: contactMatches ? contactMatches[2] : '085-220-0765',
-            });
+                const content = flexTemplate.slotBubble({
+                    slot: slot.slot,
+                    department: slot.department,
+                    start: start,
+                    end: end,
+                    event: slot.event,
+                    location: slot.location,
+                    note: slot.note,
+                    contactName: contactMatches ? contactMatches[1] : 'พร้อม',
+                    contactTel: contactMatches
+                        ? contactMatches[2]
+                        : '085-220-0765',
+                });
 
-            return content;
-        });
+                return content;
+            })
+            .filter((content) => content !== null) as FlexBubble[];
 
-        const message = messageTemplate.message({
-            type: 'flex',
+        const message = messageTemplate.flex({
             altText: slots
                 .map((slot, index) => {
                     const start = moment(slot.start)
@@ -380,18 +384,19 @@ const setOffset = async (sheet: string, slot: number, offset: number) => {
         sheetUpdateData[`C${slot.slot + 2}`] = moment(slot.end).format('HH:mm');
     }
 
-    await updateOffsetInSheet(sheet, sheetUpdateData);
+    const content = flexTemplate.setOffsetBubble({ slot, offset });
 
-    await messageUtil.sendMessage('broadcast', {
-        messages: [
-            {
-                type: 'text',
-                text: `${
-                    offset === 0 ? 0 : offset > 0 ? `+${offset}` : offset
-                } นาที ตั้งแต่ Slot ที่ ${slot} เป็นต้นไป`,
-            },
-        ],
+    const message = messageTemplate.flex({
+        altText: `${
+            offset === 0 ? 0 : offset > 0 ? `+${offset}` : offset
+        } นาที ตั้งแต่ Slot ที่ ${slot} เป็นต้นไป`,
+        contents: content,
     });
+
+    await Promise.all([
+        updateOffsetInSheet(sheet, sheetUpdateData),
+        messageUtil.sendMessage('broadcast', { messages: [message] }),
+    ]);
 
     return updatedSlots;
 };

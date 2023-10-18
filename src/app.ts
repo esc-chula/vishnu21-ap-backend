@@ -10,8 +10,14 @@ import apController from './controllers/ap.controller';
 import userController from './controllers/user.controller';
 import webhookController from './controllers/webhook.controller';
 import apService from './services/ap.service';
+import middleware from '@line/bot-sdk/dist/middleware';
 
 dotenv.config();
+
+const lineConfig = {
+    channelAccessToken: process.env.LINE_ACCESS_TOKEN!,
+    channelSecret: process.env.LINE_CHANNEL_SECRET!,
+};
 
 const app = express();
 
@@ -19,7 +25,7 @@ const app = express();
 
 mongoose
     .connect(
-        `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASS}@${process.env.MONGO_CLUSTER}.7mwofts.mongodb.net/${process.env.MONGO_DB}?retryWrites=true&w=majority`
+        `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASS}@${process.env.MONGO_CLUSTER}.egquqld.mongodb.net`
     )
     .then(() => {
         console.log('Database connected ');
@@ -44,7 +50,7 @@ app.use(
         origin: [process.env.CLIENT_URL!],
     })
 );
-
+app.use('/webhook', middleware(lineConfig));
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 

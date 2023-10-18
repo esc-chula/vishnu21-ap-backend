@@ -1,0 +1,66 @@
+{
+    "type": "bubble",
+    "size": "kilo",
+    "body": {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+            {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                    {
+                        "type": "text",
+                        "text": "ANNOUNCEMENT",
+                        "weight": "bold",
+                        "color": "#e94444",
+                        "size": "xs"
+                    },
+                    {
+                        "type": "text",
+                        "text": "+30 นาที",
+                        "weight": "bold",
+                        "size": "xxl",
+                        "margin": "md",
+                        "color": "#F8FAFC"
+                    }
+                ],
+                "paddingAll": "xxl",
+                "backgroundColor": "#020617"
+            },
+            {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                    {
+                        "type": "box",
+                        "layout": "vertical",
+                        "contents": [
+                            {
+                                "type": "text",
+                                "text": "ตั้งแต่",
+                                "size": "xs",
+                                "color": "#64748B"
+                            },
+                            {
+                                "type": "text",
+                                "text": "Slot #300 เป็นต้นไป",
+                                "size": "xl",
+                                "weight": "bold",
+                                "wrap": true,
+                                "color": "#1E293B"
+                            }
+                        ]
+                    }
+                ],
+                "paddingAll": "xxl"
+            }
+        ],
+        "paddingAll": "none"
+    },
+    "styles": {
+        "footer": {
+            "separator": true
+        }
+    }
+}

@@ -26,8 +26,7 @@ export const announceSlot = async (event: IEvent, slots: ISlot[]) => {
     });
 
     if (contents.length > 1) {
-        const message = messageTemplate.message({
-            type: 'flex',
+        const message = messageTemplate.flex({
             altText: slots
                 .map((slot) => {
                     const start = moment(slot.start).format('HH:mm');
@@ -52,8 +51,7 @@ export const announceSlot = async (event: IEvent, slots: ISlot[]) => {
         const slot = slots[0];
         const start = moment(slot.start).format('HH:mm');
         const end = moment(slot.end).format('HH:mm');
-        const message = messageTemplate.message({
-            type: 'flex',
+        const message = messageTemplate.flex({
             altText: `${slot.event} ${start}-${end}`,
             contents: content,
         });

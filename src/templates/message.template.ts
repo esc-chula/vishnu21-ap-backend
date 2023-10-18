@@ -1,13 +1,28 @@
 import { IMessage } from '@/interfaces/message';
+import { FlexContainer, FlexMessage, TextMessage } from '@line/bot-sdk';
 
-const message = ({ type, altText, contents }: IMessage) => {
+const text = ({ contents }: { contents: string }): TextMessage => {
     return {
-        type: type,
+        type: 'text',
+        text: contents,
+    };
+};
+
+const flex = ({
+    altText,
+    contents,
+}: {
+    altText: string;
+    contents: FlexContainer;
+}): FlexMessage => {
+    return {
+        type: 'flex',
         altText: altText,
         contents: contents,
     };
 };
 
 export default {
-    message,
+    text,
+    flex,
 };

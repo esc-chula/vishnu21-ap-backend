@@ -8,6 +8,7 @@
         "build": "tsc && tsc-alias"
     },
     "dependencies": {
+        "@line/bot-sdk": "^8.0.0",
         "@types/node-cron": "^3.0.8",
         "axios": "^1.4.0",
         "body-parser": "^1.20.2",

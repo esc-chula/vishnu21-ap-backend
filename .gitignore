@@ -128,3 +128,9 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+# ngrok
+ngrok.exe
+
+# loophole
+loophole.exe

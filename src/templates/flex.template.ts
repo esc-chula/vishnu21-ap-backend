@@ -1,4 +1,5 @@
 import { TDepartment } from '@/interfaces/department';
+import { FlexBubble } from '@line/bot-sdk';
 
 const slotBubble = ({
     slot,
@@ -20,7 +21,7 @@ const slotBubble = ({
     note: string;
     contactName: string;
     contactTel: string;
-}) => {
+}): FlexBubble => {
     return {
         type: 'bubble',
         size: 'mega',
@@ -164,6 +165,82 @@ const slotBubble = ({
     };
 };
 
+const setOffsetBubble = ({
+    slot,
+    offset,
+}: {
+    slot: number;
+    offset: number;
+}): FlexBubble => {
+    return {
+        type: 'bubble',
+        size: 'kilo',
+        body: {
+            type: 'box',
+            layout: 'vertical',
+            contents: [
+                {
+                    type: 'box',
+                    layout: 'vertical',
+                    contents: [
+                        {
+                            type: 'text',
+                            text: 'ANNOUNCEMENT',
+                            weight: 'bold',
+                            color: '#e94444',
+                            size: 'xs',
+                        },
+                        {
+                            type: 'text',
+                            text: `${offset > 0 ? `+${offset}` : offset} นาที`,
+                            weight: 'bold',
+                            size: 'xxl',
+                            margin: 'md',
+                            color: '#F8FAFC',
+                        },
+                    ],
+                    paddingAll: 'xxl',
+                    backgroundColor: '#020617',
+                },
+                {
+                    type: 'box',
+                    layout: 'vertical',
+                    contents: [
+                        {
+                            type: 'box',
+                            layout: 'vertical',
+                            contents: [
+                                {
+                                    type: 'text',
+                                    text: 'ตั้งแต่',
+                                    size: 'xs',
+                                    color: '#64748B',
+                                },
+                                {
+                                    type: 'text',
+                                    text: `Slot #${slot} เป็นต้นไป`,
+                                    size: 'xl',
+                                    weight: 'bold',
+                                    wrap: true,
+                                    color: '#1E293B',
+                                },
+                            ],
+                        },
+                    ],
+                    paddingAll: 'xxl',
+                },
+            ],
+            paddingAll: 'none',
+        },
+        styles: {
+            footer: {
+                separator: true,
+            },
+        },
+    };
+};
+
 export default {
     slotBubble,
+    setOffsetBubble,
 };
