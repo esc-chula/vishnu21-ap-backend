@@ -49,6 +49,19 @@
                                 "weight": "bold",
                                 "wrap": true,
                                 "color": "#1E293B"
+                            },
+                            {
+                                "type": "separator",
+                                "margin": "sm"
+                            },
+                            {
+                                "type": "text",
+                                "text": "สั่งโดย ไอนอร์ท",
+                                "size": "xs",
+                                "wrap": true,
+                                "color": "#64748B",
+                                "margin": "sm",
+                                "align": "end"
                             }
                         ]
                     }

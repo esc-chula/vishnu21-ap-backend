@@ -1,4 +1,3 @@
-import { IMessage } from '@/interfaces/message';
 import { FlexContainer, FlexMessage, TextMessage } from '@line/bot-sdk';
 
 const text = ({ contents }: { contents: string }): TextMessage => {

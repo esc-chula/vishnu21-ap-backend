@@ -168,9 +168,11 @@ const slotBubble = ({
 const setOffsetBubble = ({
     slot,
     offset,
+    displayName,
 }: {
     slot: number;
     offset: number;
+    displayName: string;
 }): FlexBubble => {
     return {
         type: 'bubble',
@@ -223,6 +225,19 @@ const setOffsetBubble = ({
                                     weight: 'bold',
                                     wrap: true,
                                     color: '#1E293B',
+                                },
+                                {
+                                    type: 'separator',
+                                    margin: 'sm',
+                                },
+                                {
+                                    type: 'text',
+                                    text: `สั่งโดย ${displayName}`,
+                                    size: 'xs',
+                                    wrap: true,
+                                    color: '#64748B',
+                                    margin: 'sm',
+                                    align: 'end',
                                 },
                             ],
                         },

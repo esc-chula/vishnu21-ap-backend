@@ -8,6 +8,7 @@ import flexTemplate from '@/templates/flex.template';
 import messageUtil from '@/utils/message.util';
 import userService from './user.service';
 import { FlexBubble } from '@line/bot-sdk';
+import { getProfile } from '@/utils/lineClient.util';
 
 const create = async (body: ISlot) => {
     const createdSlot = await ApModel.create(body)
@@ -340,10 +341,17 @@ const updateOffsetInSheet = async (sheet: string, updateData: any) => {
         .catch(() => {});
 };
 
-const setOffset = async (sheet: string, slot: number, offset: number) => {
-    const slots = await findAll();
+const setOffset = async (
+    sheet: string,
+    slot: number,
+    offset: number,
+    userId: string,
+    displayName: string
+) => {
+    const [slots, profile] = await Promise.all([findAll(), getProfile(userId)]);
 
-    if (!slots) return null;
+    if (!slots) throw new Error('slots is null');
+    if (!profile) throw new Error('profile is null');
 
     const targetSlots = slots.slice(slot - 1);
 
@@ -384,12 +392,12 @@ const setOffset = async (sheet: string, slot: number, offset: number) => {
         sheetUpdateData[`C${slot.slot + 2}`] = moment(slot.end).format('HH:mm');
     }
 
-    const content = flexTemplate.setOffsetBubble({ slot, offset });
+    const content = flexTemplate.setOffsetBubble({ slot, offset, displayName });
 
     const message = messageTemplate.flex({
         altText: `${
             offset === 0 ? 0 : offset > 0 ? `+${offset}` : offset
-        } นาที ตั้งแต่ Slot ที่ ${slot} เป็นต้นไป`,
+        } นาที ตั้งแต่ Slot ที่ ${slot} เป็นต้นไปโดย ${displayName} `,
         contents: content,
     });
 

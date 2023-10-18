@@ -161,20 +161,30 @@ router.post('/announce/reset', async (req, res) => {
 });
 
 router.patch('/offset', async (req, res) => {
-    const { slot, offset } = req.body;
+    const { slot, offset, userId, displayName } = req.body;
 
     const updatedSlot = await apService.setOffset(
         process.env.SHEET_NAME!,
         slot,
-        offset
+        offset,
+        userId,
+        displayName
     );
 
-    if (!updatedSlot) {
+    if (updatedSlot instanceof Error && updatedSlot.message === 'slots is null')
         return res.status(400).send({
             success: false,
             message: 'Error updating offset',
         });
-    }
+
+    if (
+        updatedSlot instanceof Error &&
+        updatedSlot.message === 'profile is null'
+    )
+        return res.status(403).send({
+            success: false,
+            message: 'Not authorized',
+        });
 
     return res.status(200).send({
         success: true,
