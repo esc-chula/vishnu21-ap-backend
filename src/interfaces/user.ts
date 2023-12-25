@@ -9,10 +9,12 @@ export interface CreateUserDTO {
 export interface UpdateUserDTO {
     enableBot?: boolean;
     selectedDepartments?: TDepartment[];
+    displayName?: string;
 }
 
 export interface IUser extends CreateUserDTO {
     enableBot: boolean;
     selectedDepartments: TDepartment[];
-    superUser: boolean;
+    superuser: boolean;
+    isBlocked: boolean;
 }

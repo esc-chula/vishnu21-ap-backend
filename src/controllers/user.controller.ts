@@ -11,10 +11,18 @@ router.post('/', async (req, res) => {
     const existedUser = await userService.findByStudentId(studentId);
 
     if (existedUser) {
+        const updatedUser = await userService.updateByStudentId(
+            existedUser.studentId,
+            {
+                displayName,
+            }
+        );
         return res.status(200).send({
             success: true,
-            message: 'User already exists',
-            data: existedUser,
+            message: updatedUser
+                ? 'Updated existed user successfully'
+                : 'Updated existed user failed',
+            data: updatedUser ? updatedUser : existedUser,
         });
     }
 
@@ -24,7 +32,8 @@ router.post('/', async (req, res) => {
         userId,
         enableBot: false,
         selectedDepartments: [],
-        superUser: false,
+        superuser: true,
+        isBlocked: false,
     });
 
     if (!createdUser) {
@@ -63,7 +72,7 @@ router.get('/', async (req, res) => {
 router.get('/:studentId_or_userId', async (req, res) => {
     const { studentId_or_userId } = req.params;
 
-    const isStudentId = /^653\d{5}21$/.test(studentId_or_userId);
+    const isStudentId = /^6[4|5|6]3\d{5}21$/.test(studentId_or_userId);
 
     let user = null;
 

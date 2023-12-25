@@ -1,0 +1,2 @@
+runtime: nodejs18
+min_idle_instances: 1

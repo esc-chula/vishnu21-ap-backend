@@ -1,4 +1,4 @@
-export type TDepartment =
+type VishnuDepartment =
     | 'COOR'
     | 'PLAN'
     | 'ACT'
@@ -13,3 +13,20 @@ export type TDepartment =
     | 'PR'
     | 'IT'
     | 'FINANCE';
+
+type LarngearCampDepartment =
+    | 'COOP'
+    | 'PLAN'
+    | 'ACT'
+    | 'BOARD'
+    | 'VCK'
+    | 'SECURITY'
+    | 'SUPPLY'
+    | 'PLACE'
+    | 'NURSE'
+    | 'REG'
+    | 'PR'
+    | 'SPONSOR'
+    | 'FINANCE';
+
+export type TDepartment = LarngearCampDepartment;

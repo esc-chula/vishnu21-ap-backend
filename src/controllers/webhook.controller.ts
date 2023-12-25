@@ -7,6 +7,7 @@ import express from 'express';
 const router = express.Router();
 
 router.post('/', async (req, res) => {
+    // console.log(req.body.events);
     const activeApData = await apService.findActiveSlots();
 
     if (!activeApData) {

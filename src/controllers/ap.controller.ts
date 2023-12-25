@@ -163,13 +163,9 @@ router.post('/announce/reset', async (req, res) => {
 router.patch('/offset', async (req, res) => {
     const { slot, offset, userId, displayName } = req.body;
 
-    const updatedSlot = await apService.setOffset(
-        process.env.SHEET_NAME!,
-        slot,
-        offset,
-        userId,
-        displayName
-    );
+    const updatedSlot = await apService
+        .setOffset(process.env.SHEET_NAME!, slot, offset, userId, displayName)
+        .catch();
 
     if (updatedSlot instanceof Error && updatedSlot.message === 'slots is null')
         return res.status(400).send({
