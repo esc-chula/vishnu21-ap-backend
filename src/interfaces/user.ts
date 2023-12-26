@@ -16,5 +16,5 @@ export interface IUser extends CreateUserDTO {
     enableBot: boolean;
     selectedDepartments: TDepartment[];
     superuser: boolean;
-    isBlocked: boolean;
+    authorized: boolean;
 }

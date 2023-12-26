@@ -7,7 +7,7 @@ interface User extends Document {
     enableBot: boolean;
     selectedDepartments: string[];
     superuser: boolean;
-    isBlocked: boolean;
+    authorized: boolean;
 }
 
 const UserSchema: Schema<User> = new Schema({
@@ -16,8 +16,8 @@ const UserSchema: Schema<User> = new Schema({
     userId: { type: String, required: true },
     enableBot: { type: Boolean, required: true, default: false },
     selectedDepartments: { type: [String], required: true, default: [] },
-    superuser: { type: Boolean, required: true, default: true },
-    isBlocked: { type: Boolean, required: true, default: true },
+    superuser: { type: Boolean, required: true, default: false },
+    authorized: { type: Boolean, required: true, default: false },
 });
 
 const UserModel = mongoose.model<User>('User', UserSchema);

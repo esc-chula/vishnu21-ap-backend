@@ -29,8 +29,8 @@ async function createUser(req: Request, res: Response) {
         userId,
         enableBot: false,
         selectedDepartments: [],
-        superuser: true,
-        isBlocked: false,
+        superuser: false,
+        authorized: false,
     });
 
     if (!createdUser) {

@@ -8,7 +8,6 @@ import flexTemplate from '@/templates/flex.template';
 import messageUtil from '@/utils/message.util';
 import userService from './user.service';
 import { FlexBubble } from '@line/bot-sdk';
-import { getProfile } from '@/utils/lineClient.util';
 
 const create = async (body: ISlot) => {
     const createdSlot = await ApModel.create(body)
@@ -244,8 +243,6 @@ const multicastAnnounceSlots = async () => {
         [key: string]: number[];
     };
 
-    const releaseDate = moment('2024-01-04', 'YYYY-MM-DD');
-
     for (const user of users) {
         for (const slot of announcingSlots) {
             if (
@@ -340,9 +337,7 @@ const multicastAnnounceSlots = async () => {
 
         console.log('user: ', userIds, 'text: ', message.altText);
 
-        if (moment().isAfter(releaseDate)) {
-            await messageUtil.sendMessage('multicast', replyData);
-        }
+        // await messageUtil.sendMessage('multicast', replyData);
     }
     return announcingSlots;
 };
