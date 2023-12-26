@@ -221,7 +221,9 @@ const multicastAnnounceSlots = async () => {
         return null;
     }
 
-    console.log(announcingSlots);
+    announcingSlots.forEach((slot) => {
+        console.log(slot.slot, slot.event);
+    });
 
     const users = await userService.findAll();
 
@@ -229,9 +231,20 @@ const multicastAnnounceSlots = async () => {
         return null;
     }
 
+    // users.forEach((user) => {
+    //     console.log(
+    //         user.userId,
+    //         user.displayName,
+    //         user.selectedDepartments,
+    //         user.enableBot
+    //     );
+    // });
+
     const userContents = {} as {
         [key: string]: number[];
     };
+
+    const releaseDate = moment('2024-01-04', 'YYYY-MM-DD');
 
     for (const user of users) {
         for (const slot of announcingSlots) {
@@ -256,6 +269,8 @@ const multicastAnnounceSlots = async () => {
     }
 
     const groupedUserContents = messageUtil.groupMessage(userContents);
+
+    console.log('Contents', groupedUserContents);
 
     for (const key of Object.keys(groupedUserContents)) {
         const slotIndexes = JSON.parse(key) as number[];
@@ -292,10 +307,8 @@ const multicastAnnounceSlots = async () => {
                     event: slot.event,
                     location: slot.location,
                     note: slot.note,
-                    contactName: contactMatches ? contactMatches[1] : 'พร้อม',
-                    contactTel: contactMatches
-                        ? contactMatches[2]
-                        : '085-220-0765',
+                    contactName: contactMatches ? contactMatches[1] : '-',
+                    contactTel: contactMatches ? contactMatches[2] : '-',
                 });
 
                 return content;
@@ -325,8 +338,13 @@ const multicastAnnounceSlots = async () => {
             messages: [message],
         };
 
-        await messageUtil.sendMessage('multicast', replyData);
+        console.log('user: ', userIds, 'text: ', message.altText);
+
+        if (moment().isAfter(releaseDate)) {
+            await messageUtil.sendMessage('multicast', replyData);
+        }
     }
+    return announcingSlots;
 };
 
 const updateOffsetInSheet = async (sheet: string, updateData: any) => {
@@ -348,10 +366,11 @@ const setOffset = async (
     userId: string,
     displayName: string
 ) => {
-    const [slots, profile] = await Promise.all([findAll(), getProfile(userId)]);
+    // const [slots, profile] = await Promise.all([findAll(), getProfile(userId)]);
+    const slots = await findAll();
 
     if (!slots) throw new Error('slots is null');
-    if (!profile) throw new Error('profile is null');
+    // if (!profile) throw new Error('profile is null');
 
     const targetSlots = slots.slice(slot - 1);
 

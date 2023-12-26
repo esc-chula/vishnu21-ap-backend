@@ -1,12 +1,10 @@
 import { ISlot } from '@/interfaces/ap';
 import apService from '@/services/ap.service';
-import express from 'express';
+import { Request, Response } from 'express';
 import moment from 'moment';
 
-const router = express.Router();
-
 // sync data from google sheet
-router.post('/sync', async (req, res) => {
+async function syncFromSheet(req: Request, res: Response) {
     const syncedData = await apService.syncSheet(process.env.SHEET_NAME!);
 
     if (!syncedData) {
@@ -20,9 +18,9 @@ router.post('/sync', async (req, res) => {
         success: true,
         message: `Synced ${syncedData.length} slots successfully`,
     });
-});
+}
 
-router.get('/', async (req, res) => {
+async function getSlots(req: Request, res: Response) {
     const slots = await apService.findAll();
 
     if (!slots) {
@@ -37,9 +35,9 @@ router.get('/', async (req, res) => {
         message: 'Data fetched successfully',
         data: slots,
     });
-});
+}
 
-router.get('/check/:slot', async (req, res) => {
+async function getOneSlot(req: Request, res: Response) {
     const slot = await apService.findOneBySlot(parseInt(req.params.slot));
 
     if (!slot) {
@@ -75,9 +73,9 @@ router.get('/check/:slot', async (req, res) => {
             announced: slot.announced,
         },
     });
-});
+}
 
-router.get('/active', async (req, res) => {
+async function getActiveSlots(req: Request, res: Response) {
     const activeSlots = await apService.findActiveSlots();
 
     if (!activeSlots) {
@@ -92,9 +90,9 @@ router.get('/active', async (req, res) => {
         message: 'Data fetched successfully',
         data: activeSlots,
     });
-});
+}
 
-router.get('/upcoming', async (req, res) => {
+async function getUpcomingSlots(req: Request, res: Response) {
     const upcomingSlots = await apService.findUpcomingSlots();
 
     if (!upcomingSlots) {
@@ -109,11 +107,10 @@ router.get('/upcoming', async (req, res) => {
         message: 'Data fetched successfully',
         data: upcomingSlots,
     });
-});
+}
 
-router.post('/announce', async (req, res) => {
-    const announcingSlots = await apService.announceSlots();
-    await apService.multicastAnnounceSlots();
+async function announce(req: Request, res: Response) {
+    const announcingSlots = await apService.multicastAnnounceSlots();
 
     if (!announcingSlots) {
         return res.status(400).send({
@@ -131,9 +128,9 @@ router.post('/announce', async (req, res) => {
         message: 'Announced successfully',
         data: announcingSlots,
     });
-});
+}
 
-router.post('/announce/reset', async (req, res) => {
+async function resetAnnouncedSlots(req: Request, res: Response) {
     const slots = await apService.findAnnouncedSlots();
 
     if (!slots) {
@@ -158,9 +155,9 @@ router.post('/announce/reset', async (req, res) => {
         message: 'Announced slots reset successfully',
         data: updatedSlots,
     });
-});
+}
 
-router.patch('/offset', async (req, res) => {
+async function makeOffset(req: Request, res: Response) {
     const { slot, offset, userId, displayName } = req.body;
 
     const updatedSlot = await apService
@@ -187,6 +184,15 @@ router.patch('/offset', async (req, res) => {
         message: `Updated ${updatedSlot.length} slots successfully`,
         data: updatedSlot,
     });
-});
+}
 
-export default router;
+export default {
+    syncFromSheet,
+    getSlots,
+    getOneSlot,
+    getActiveSlots,
+    getUpcomingSlots,
+    announce,
+    resetAnnouncedSlots,
+    makeOffset,
+};

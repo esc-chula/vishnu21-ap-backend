@@ -11,6 +11,12 @@ import userController from './controllers/user.controller';
 import webhookController from './controllers/webhook.controller';
 import apService from './services/ap.service';
 import middleware from '@line/bot-sdk/dist/middleware';
+import defaultRoutes from './routes/default.routes';
+import errorRoutes from './routes/error.routes';
+import userRoutes from './routes/user.routes';
+import helmet from 'helmet';
+import apRoutes from './routes/ap.routes';
+import webhookRoutes from './routes/webhook.routes';
 
 dotenv.config();
 
@@ -21,7 +27,7 @@ const lineConfig = {
 
 const app = express();
 
-// moment.tz.setDefault('Asia/Bangkok');
+moment.tz.setDefault('Asia/Bangkok');
 
 mongoose
     .connect(
@@ -36,7 +42,7 @@ mongoose
     });
 
 cron.schedule('* * * * *', () => {
-    console.log('checking active slots');
+    // console.log('checking active slots');
     apService.multicastAnnounceSlots();
 });
 
@@ -50,21 +56,15 @@ app.use(
         origin: [process.env.CLIENT_URL!],
     })
 );
-// app.use(cors());
-app.use('/webhook', middleware(lineConfig));
+app.use(helmet());
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use('/ap', apController);
-app.use('/user', userController);
-app.use('/webhook', webhookController);
-
-app.get('/', async (req, res) => {
-    res.send({
-        success: true,
-        message: `Server is running watching ${process.env.SHEET_NAME}`,
-    });
-});
+app.use('/', defaultRoutes);
+app.use('/ap', apRoutes);
+app.use('/user', userRoutes);
+app.use('/webhook', middleware(lineConfig), webhookRoutes);
+app.use(errorRoutes);
 
 app.listen(process.env.PORT, () => {
     console.log(`Server running on port ${process.env.PORT}`);

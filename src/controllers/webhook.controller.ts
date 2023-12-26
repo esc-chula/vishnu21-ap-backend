@@ -1,12 +1,11 @@
 import { ISlot } from '@/interfaces/ap';
-import { IEvent } from '@/interfaces/webhook';
+import { TextEvent } from '@/interfaces/webhook';
 import apService from '@/services/ap.service';
 import webhookService from '@/services/webhook.service';
-import express from 'express';
+import { WebhookEvent } from '@line/bot-sdk';
+import { Request, Response } from 'express';
 
-const router = express.Router();
-
-router.post('/', async (req, res) => {
+async function webhookHandler(req: Request, res: Response) {
     // console.log(req.body.events);
     const activeApData = await apService.findActiveSlots();
 
@@ -19,10 +18,10 @@ router.post('/', async (req, res) => {
 
     await req.body.events
         .filter(
-            (event: IEvent) =>
+            (event: WebhookEvent) =>
                 event.type === 'message' && event.message.type === 'text'
         )
-        .forEach(async (event: IEvent) => {
+        .forEach(async (event: TextEvent) => {
             switch (event.message.text) {
                 case 'active':
                     await webhookService.announceSlot(event, activeApData);
@@ -34,6 +33,6 @@ router.post('/', async (req, res) => {
         success: true,
         message: 'HTTP POST request sent to the LINE webhook URL!',
     });
-});
+}
 
-export default router;
+export default { webhookHandler };

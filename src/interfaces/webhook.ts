@@ -1,14 +1,7 @@
-export interface IEvent {
+import { ReplyableEvent, TextEventMessage } from '@line/bot-sdk';
+
+export type TextEvent = {
+    type: 'message';
+    message: TextEventMessage;
     replyToken: string;
-    type: string;
-    timestamp: number;
-    source: {
-        type: string;
-        userId: string;
-    };
-    message: {
-        id: string;
-        type: string;
-        text: string;
-    };
-}
+} & ReplyableEvent;

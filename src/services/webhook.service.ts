@@ -1,11 +1,11 @@
 import { ISlot } from '@/interfaces/ap';
-import { IEvent } from '@/interfaces/webhook';
+import { TextEvent } from '@/interfaces/webhook';
 import flexTemplate from '@/templates/flex.template';
 import messageTemplate from '@/templates/message.template';
 import messageUtil from '@/utils/message.util';
 import moment from 'moment';
 
-export const announceSlot = async (event: IEvent, slots: ISlot[]) => {
+export const announceSlot = async (event: TextEvent, slots: ISlot[]) => {
     const contents = slots.map((slot) => {
         const start = moment(slot.start).format('HH:mm');
         const end = moment(slot.end).format('HH:mm');

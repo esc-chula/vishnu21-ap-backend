@@ -1,11 +1,8 @@
 import { CreateUserDTO, UpdateUserDTO } from '@/interfaces/user';
 import userService from '@/services/user.service';
-import express from 'express';
+import { Request, Response } from 'express';
 
-const router = express.Router();
-
-// create user
-router.post('/', async (req, res) => {
+async function createUser(req: Request, res: Response) {
     const { displayName, studentId, userId } = req.body as CreateUserDTO;
 
     const existedUser = await userService.findByStudentId(studentId);
@@ -48,10 +45,9 @@ router.post('/', async (req, res) => {
         message: 'User created successfully',
         data: createdUser,
     });
-});
+}
 
-// get all user
-router.get('/', async (req, res) => {
+async function getUsers(req: Request, res: Response) {
     const users = await userService.findAll();
 
     if (!users) {
@@ -66,10 +62,9 @@ router.get('/', async (req, res) => {
         message: 'Users fetched successfully',
         data: users,
     });
-});
+}
 
-// get by studentId or userId
-router.get('/:studentId_or_userId', async (req, res) => {
+async function getUserByStudentIdOrUserId(req: Request, res: Response) {
     const { studentId_or_userId } = req.params;
 
     const isStudentId = /^6[4|5|6]3\d{5}21$/.test(studentId_or_userId);
@@ -94,15 +89,14 @@ router.get('/:studentId_or_userId', async (req, res) => {
         message: 'User fetched successfully',
         data: user,
     });
-});
+}
 
-// update user
-router.patch('/:studentId_or_userId', async (req, res) => {
+async function updateUser(req: Request, res: Response) {
     const { studentId_or_userId } = req.params;
 
     const updateBody = req.body as UpdateUserDTO;
 
-    const isStudentId = /^653\d{5}21$/.test(studentId_or_userId);
+    const isStudentId = /^6[4|5|6]3\d{5}21$/.test(studentId_or_userId);
 
     let updatedUser = null;
 
@@ -130,6 +124,6 @@ router.patch('/:studentId_or_userId', async (req, res) => {
         message: 'User updated successfully',
         data: updatedUser,
     });
-});
+}
 
-export default router;
+export default { createUser, getUsers, getUserByStudentIdOrUserId, updateUser };
