@@ -18,7 +18,6 @@ type LarngearCampDepartment =
     | 'COOP'
     | 'PLAN'
     | 'ACT'
-    | 'BOARD'
     | 'VCK'
     | 'SECURITY'
     | 'SUPPLY'

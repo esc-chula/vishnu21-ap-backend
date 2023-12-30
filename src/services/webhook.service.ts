@@ -2,7 +2,7 @@ import { ISlot } from '@/interfaces/ap';
 import { TextEvent } from '@/interfaces/webhook';
 import flexTemplate from '@/templates/flex.template';
 import messageTemplate from '@/templates/message.template';
-import messageUtil from '@/utils/message.util';
+import lineClientUtil from '@/utils/lineClient.util';
 import moment from 'moment';
 
 export const announceSlot = async (event: TextEvent, slots: ISlot[]) => {
@@ -40,12 +40,7 @@ export const announceSlot = async (event: TextEvent, slots: ISlot[]) => {
             },
         });
 
-        const replyData = {
-            replyToken: event.replyToken,
-            messages: [message],
-        };
-
-        messageUtil.sendMessage('reply', replyData);
+        lineClientUtil.replyMessage(event.replyToken, [message]);
     } else {
         const content = contents[0];
         const slot = slots[0];
@@ -56,12 +51,7 @@ export const announceSlot = async (event: TextEvent, slots: ISlot[]) => {
             contents: content,
         });
 
-        const replyData = {
-            replyToken: event.replyToken,
-            messages: [message],
-        };
-
-        messageUtil.sendMessage('reply', replyData);
+        lineClientUtil.replyMessage(event.replyToken, [message]);
     }
 };
 

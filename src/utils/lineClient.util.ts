@@ -1,4 +1,9 @@
-import { messagingApi } from '@line/bot-sdk';
+import {
+    Message,
+    MessageEvent,
+    WebhookEvent,
+    messagingApi,
+} from '@line/bot-sdk';
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -17,4 +22,24 @@ const getProfile = async (userId: string) => {
     return profile;
 };
 
-export { getProfile };
+const replyMessage = async (replyToken: string, messages: Message[]) => {
+    const sentMessages = await client
+        .replyMessage({ replyToken, messages })
+        .then((sentMessages) => sentMessages)
+        .catch((e) => {
+            console.log(e.originalError.response.data.message);
+            return null;
+        });
+    return sentMessages;
+};
+
+const replyText = async (event: MessageEvent, text: string) => {
+    return await replyMessage(event.replyToken, [
+        {
+            type: 'text',
+            text,
+        },
+    ]);
+};
+
+export default { getProfile, replyMessage, replyText };
