@@ -220,24 +220,15 @@ const multicastAnnounceSlots = async () => {
         return null;
     }
 
-    announcingSlots.forEach((slot) => {
-        console.log(slot.slot, slot.event);
-    });
+    // announcingSlots.forEach((slot) => {
+    //     console.log(slot.slot, slot.event);
+    // });
 
     const users = await userService.findAll();
 
     if (!users) {
         return null;
     }
-
-    // users.forEach((user) => {
-    //     console.log(
-    //         user.userId,
-    //         user.displayName,
-    //         user.selectedDepartments,
-    //         user.enableBot
-    //     );
-    // });
 
     const userContents = {} as {
         [key: string]: number[];
@@ -247,7 +238,8 @@ const multicastAnnounceSlots = async () => {
         for (const slot of announcingSlots) {
             if (
                 user.selectedDepartments.includes(slot.department) &&
-                user.enableBot
+                user.enableBot &&
+                user.superuser // for testing purpose
             ) {
                 if (!userContents[user.userId as keyof typeof userContents]) {
                     Object.defineProperty(userContents, user.userId, {
@@ -337,7 +329,7 @@ const multicastAnnounceSlots = async () => {
 
         console.log('user: ', userIds, 'text: ', message.altText);
 
-        // await messageUtil.sendMessage('multicast', replyData);
+        await messageUtil.sendMessage('multicast', replyData);
     }
     return announcingSlots;
 };

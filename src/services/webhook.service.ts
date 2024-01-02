@@ -18,8 +18,8 @@ export const announceSlot = async (event: TextEvent, slots: ISlot[]) => {
             event: slot.event,
             location: slot.location,
             note: slot.note,
-            contactName: 'ปูน',
-            contactTel: '0918751929',
+            contactName: 'เติ้ล',
+            contactTel: '0897991699',
         });
 
         return content;

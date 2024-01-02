@@ -33,13 +33,23 @@ const replyMessage = async (replyToken: string, messages: Message[]) => {
     return sentMessages;
 };
 
-const replyText = async (event: MessageEvent, text: string) => {
-    return await replyMessage(event.replyToken, [
-        {
-            type: 'text',
-            text,
-        },
-    ]);
+const replyText = async (replyToken: string, text: string) => {
+    const sentMessages = await client
+        .replyMessage({
+            replyToken,
+            messages: [
+                {
+                    type: 'text',
+                    text,
+                },
+            ],
+        })
+        .then((sentMessages) => sentMessages)
+        .catch((e) => {
+            console.log(e.originalError.response.data.message);
+            return null;
+        });
+    return sentMessages;
 };
 
 export default { getProfile, replyMessage, replyText };
