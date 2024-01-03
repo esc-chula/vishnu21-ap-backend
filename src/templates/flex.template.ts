@@ -68,7 +68,7 @@ const slotBubble = ({
                                 },
                                 {
                                     type: 'text',
-                                    text: `${event}`,
+                                    text: `${event ? event : '-'}`,
                                     size: 'xl',
                                     weight: 'bold',
                                     wrap: true,
@@ -93,7 +93,7 @@ const slotBubble = ({
                                 },
                                 {
                                     type: 'text',
-                                    text: `${location}`,
+                                    text: `${location ? location : '-'}`,
                                     size: 'lg',
                                     weight: 'bold',
                                     wrap: true,

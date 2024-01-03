@@ -179,6 +179,7 @@ const findActiveSlots = async () => {
             moment(slot.end).format('HH:mm:ss'),
             'HH:mm:ss'
         ).utcOffset(7);
+        if (endTime.isBefore(startTime)) endTime.add(1, 'day');
         const isBetween = currentTime.isBetween(startTime, endTime);
         const isSameAsStart =
             currentTime.format('HH:mm') === startTime.format('HH:mm');
