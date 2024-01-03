@@ -239,8 +239,7 @@ const multicastAnnounceSlots = async () => {
         for (const slot of announcingSlots) {
             if (
                 user.selectedDepartments.includes(slot.department) &&
-                user.enableBot &&
-                user.superuser // for testing purpose
+                user.enableBot
             ) {
                 if (!userContents[user.userId as keyof typeof userContents]) {
                     Object.defineProperty(userContents, user.userId, {
