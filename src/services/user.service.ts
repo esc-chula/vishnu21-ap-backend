@@ -16,6 +16,13 @@ const findAll = async () => {
     return users;
 };
 
+const findAlluserIds = async () => {
+    const userIds = await UserModel.find({}, { userId: 1, _id: 0 })
+        .then((users) => users.map((user) => user.userId))
+        .catch(() => null);
+    return userIds;
+};
+
 const findByUserId = async (userId: string) => {
     const user = await UserModel.findOne({ userId })
         .then((user) => user)
@@ -65,6 +72,7 @@ const updateByStudentId = async (studentId: string, body: UpdateUserDTO) => {
 export default {
     createUser,
     findAll,
+    findAlluserIds,
     findByUserId,
     findByStudentId,
     findUserIdBySelectedDepartments,

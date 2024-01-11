@@ -354,11 +354,16 @@ const setOffset = async (
     displayName: string
 ) => {
     // const [slots, profile] = await Promise.all([findAll(), getProfile(userId)]);
-    const slots = await findAll();
+    const [slots, userIds] = await Promise.all([
+        findAll(),
+        userService.findAlluserIds(),
+    ]);
+    // const slots = await findAll();
 
     if (!slots) throw new Error('slots is null');
     // if (!profile) throw new Error('profile is null');
 
+    // Slotno. (#114.2) -> index (115)
     const targetSlots = slots.slice(slot - 1);
 
     const updatedSlots = [] as ISlot[];
@@ -407,9 +412,15 @@ const setOffset = async (
         contents: content,
     });
 
+    const replyData = {
+        to: userIds,
+        messages: [message],
+    };
+
     await Promise.all([
         updateOffsetInSheet(sheet, sheetUpdateData),
-        messageUtil.sendMessage('broadcast', { messages: [message] }),
+        messageUtil.sendMessage('multicast', replyData),
+        // messageUtil.sendMessage('broadcast', { messages: [message] }),
     ]);
 
     return updatedSlots;

@@ -29,4 +29,18 @@ type LarngearCampDepartment =
     | 'FINANCE'
     | 'MC';
 
-export type TDepartment = LarngearCampDepartment;
+type IntaniaMuseumDepartment =
+    | 'ACTY'
+    | 'ART'
+    | 'HALL'
+    | 'MUSEUM'
+    | 'PR'
+    | 'TWILIGHT'
+    | 'REG'
+    | 'PLAN'
+    | 'MEDIC'
+    | 'SUPPLY'
+    | 'PLACE'
+    | 'WELFARE';
+
+export type TDepartment = IntaniaMuseumDepartment;
